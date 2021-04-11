@@ -186,7 +186,7 @@ body {
   line-height: 2;
   min-height: 100%;
   position: relative;
-  transition: all 0.2s ease-in-out;
+  transition: padding 0.2s ease-in-out;
 }
 h1,
 h2,
@@ -2618,7 +2618,7 @@ ul.breadcrumb li:last-child {
 }
 @media (min-width: 992px) {
   .sidebar-active {
-    margin-left: 320px;
+    padding-left: 320px;
   }
 }
 .sidebar {
@@ -2656,7 +2656,7 @@ ul.breadcrumb li:last-child {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #0d639f;
+  background: #66c99c;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
