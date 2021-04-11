@@ -3,18 +3,18 @@
   <title>coderYun</title>
   
   <subtitle>To Be Better</subtitle>
-  <link href="https://github.com/coderYun/coderYun.github.io/atom.xml" rel="self"/>
+  <link href="http://example.com/atom.xml" rel="self"/>
   
-  <link href="https://github.com/coderYun/coderYun.github.io/"/>
+  <link href="http://example.com/"/>
   <updated>2021-04-10T04:33:32.911Z</updated>
-  <id>https://github.com/coderYun/coderYun.github.io/</id>
+  <id>http://example.com/</id>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>首页</title>
-    <link href="https://github.com/coderYun/coderYun.github.io/2021/04/07/hello-world/"/>
-    <id>https://github.com/coderYun/coderYun.github.io/2021/04/07/hello-world/</id>
+    <link href="http://example.com/2021/04/07/hello-world/"/>
+    <id>http://example.com/2021/04/07/hello-world/</id>
     <published>2021-04-07T14:26:33.697Z</published>
     <updated>2021-04-10T04:33:32.911Z</updated>
     
