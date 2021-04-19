@@ -572,7 +572,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-13 23:11:06" itemprop="dateModified" datetime="2021-04-13T23:11:06+08:00">2021-04-13</time>
+        <time title="Modified: 2021-04-19 23:04:32" itemprop="dateModified" datetime="2021-04-19T23:04:32+08:00">2021-04-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -594,7 +594,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="计算机分层"><a href="#计算机分层" class="headerlink" title="计算机分层"></a>计算机分层</h3><ol>
+          <p>[toc]</p>
+<h3 id="计算机分层"><a href="#计算机分层" class="headerlink" title="计算机分层"></a>计算机分层</h3><ol>
 <li><p>目前市面上存在的有OSI七层模型,TCP/IP四层协议，以及五层协议，如图所示:</p>
 <p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82.png" alt="不同网络分层"></p>
 </li>
@@ -640,7 +641,126 @@
 <p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%AF%8F%E5%B1%82%E5%B7%A5%E4%BD%9C%E4%BD%9C%E7%94%A8.png" alt="工作流程"></p>
 </li>
 </ol>
-<p>​     </p>
+<h3 id="TCP三次握手与四次挥手机制"><a href="#TCP三次握手与四次挥手机制" class="headerlink" title="TCP三次握手与四次挥手机制"></a>TCP三次握手与四次挥手机制</h3><ol>
+<li><p><strong>传输控制协议TCP简介</strong></p>
+<ul>
+<li>面向连接的，可靠的，基于字节流的传输层通信协议</li>
+<li>将应用层的数据流分割成报文段并发送给目标节点的TCP层</li>
+<li>数据包都有序号，对方收到则发送ACK确认，未收到则重传</li>
+<li>使用校验和检验数据在传输过程中是否有误 </li>
+</ul>
+</li>
+<li><p><strong>TCP的报文结构如图所示:</strong></p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="tcp三次握手"></p>
+</li>
+</ol>
+<ul>
+<li><p>序列号seq：占4个字节，用来标记数据段的顺序，TCP把连接中发送的所有数据字节都编上一个序号，第一个字节的编号由本地随机产生；给字节编上序号后，就给每一个报文段指派一个序号；序列号seq就是这个报文段中的第一个字节的数据编号。</p>
+</li>
+<li><p>确认号ack：占4个字节，期待收到对方下一个报文段的第一个数据字节的序号；序列号表示报文段携带数据的第一个字节的编号；而确认号指的是期望接收到下一个字节的编号；因此当前报文段最后一个字节的编号+1即为确认号。</p>
+</li>
+<li><p>确认ACK：占1位，仅当ACK=1时，确认号字段才有效。ACK=0时，确认号无效</p>
+</li>
+<li><p>同步SYN：连接建立时用于同步序号。当SYN=1，ACK=0时表示：这是一个连接请求报文段。若同意连接，则在响应报文段中使得SYN=1，ACK=1。因此，SYN=1表示这是一个连接请求，或连接接受报文。SYN这个标志位只有在TCP建产连接时才会被置1，握手完成后SYN标志位被置0。</p>
+</li>
+<li><p>终止FIN：用来释放一个连接。FIN=1表示：此报文段的发送方的数据已经发送完毕，并要求释放运输连接</p>
+</li>
+<li><p>PS：ACK、SYN和FIN这些大写的单词表示标志位，其值要么是1，要么是0；ack、seq小写的单词表示序号</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>URG</td>
+<td>紧急指针是否有效。为1，表示某一位需要被优先处理</td>
+</tr>
+<tr>
+<td>ACK</td>
+<td>确认号是否有效，一般置为1</td>
+</tr>
+<tr>
+<td>PSH</td>
+<td>提示接收端应用程序立即从TCP缓冲区把数据读走</td>
+</tr>
+<tr>
+<td>RST</td>
+<td>对方要求重建建立，复位</td>
+</tr>
+<tr>
+<td>SYN</td>
+<td>请求建立连接，并且在其序列号的字段进行序列号的初始值设定。建立连接，设置为1</td>
+</tr>
+<tr>
+<td>FIN</td>
+<td>希望断开连接</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ol start="3">
+<li><strong>tcp三次握手</strong></li>
+</ol>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="tcp三次握手"></p>
+<ul>
+<li><p>第一次握手: 建立连接时，客户端会发送一个syn=j包和一个seq=x包到服务端,并且进去到SYN_SENT状态，等待服务端确认</p>
+</li>
+<li><p>第二次握手: 服务端收到来自客户端的syn包，必须确认客户端的SYN(ack=j+1),并且发送自己的seq=y包，即SYN+ACK包，此时服务端进入到SYN_RECV状态</p>
+</li>
+<li><p>第三次握手: 客户端收到来自服务端的ACK+SYN包，向服务器发送确认包ACK(ack=y+1),此包发送完毕，双方都进入到ESTABLISHED（TCP连接成功）状态，完成三次握手</p>
+</li>
+</ul>
+<ol start="4">
+<li><p><strong>tcp四次挥手</strong></p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" alt="四次挥手"></p>
+<ul>
+<li><p><strong>第一次</strong>: 客户端发送一个FIN，用来关闭客户端到服务端的数据传输，客户端进入到FIN_WAIT_1状态</p>
+</li>
+<li><p><strong>第二次</strong>:服务端收到FIN后，发送一个ACK给客户端，确认序列号为收到的序号+1（与SYN相同，一个FIN占用一个序号），Server进入到CLOSE_WAIT状态</p>
+</li>
+<li><p><strong>第三次</strong>: 服务端发送一个FIN，用来关闭服务端到客户端的数据传输，服务端进入到LAST_ACK状态</p>
+</li>
+<li><p><strong>第四次:</strong> 客户端收到FIN后，客户端进入到TIME_WAIT状态，接着发送一个ACK给服务端，确认序号为收到的序号+1,服务端进入到CLOSED状态，完成四次挥手</p>
+</li>
+</ul>
+<ol start="5">
+<li><p>【<strong>常见问题</strong>】</p>
+<ul>
+<li><p>【问题1】<strong>TCP连接必须经过2MSL后才真正释放掉，为什么 需要等待2MSL的时间段的TIME_WAIT状态再进入到CLOSE状态而不是立马就进入到CLOSE状态?</strong></p>
+<ul>
+<li><p>确保有足够的时间让对方收到ACK包。如果被动关闭的那一端没有收到ACK包，那么就会触发被动关闭方重发FIN包，一来一回刚好是2MSL的时间段</p>
+</li>
+<li><p>避免新旧连接混淆。有些路由器会缓存数据包，如果连接被重用了，那么那些延迟收到的包就有可能会跟新的数据包混淆在一起</p>
+</li>
+</ul>
+</li>
+<li><p>【问题2】<strong>为什么是需要四次握手才能断开连接？而建立连接确实三次握手？</strong></p>
+<ul>
+<li>因为全双工，发送方和接收方都需要FIN和ACK报文。</li>
+<li>当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手</li>
+</ul>
+</li>
+<li><p>【问题3】<strong>为什么不能两次握手建立连接？</strong></p>
+<ul>
+<li><p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+</li>
+<li><p><strong>为了初始化Sequence Number的初始值。</strong>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+</li>
+</ul>
+</li>
+<li><p>【问题4】<strong>如果已经建立了连接，但是客户端突然出现故障下线了怎么办(即所谓的SYN flood攻击)？</strong></p>
+<ul>
+<li>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><h3 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h3><h3 id="HTTP相关"><a href="#HTTP相关" class="headerlink" title="HTTP相关"></a>HTTP相关</h3><h3 id="Socket相关"><a href="#Socket相关" class="headerlink" title="Socket相关"></a>Socket相关</h3><p>​     </p>
 <p>​     </p>
 <p>​     </p>
 
