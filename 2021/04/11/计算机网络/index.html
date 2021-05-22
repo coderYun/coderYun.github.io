@@ -48,8 +48,17 @@
 <meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png">
 <meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/UDP%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%8F%91%E9%80%81%E6%96%B9.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E6%8E%A5%E6%94%B6%E6%96%B9.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E7%AE%80%E4%BB%8B.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB.png">
 <meta property="article:published_time" content="2021-04-11T14:33:36.000Z">
-<meta property="article:modified_time" content="2021-04-19T15:04:32.666Z">
+<meta property="article:modified_time" content="2021-05-22T09:26:17.817Z">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82.png">
@@ -175,7 +184,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-19 23:04:32" itemprop="dateModified" datetime="2021-04-19T23:04:32+08:00">2021-04-19</time>
+        <time title="Modified: 2021-05-22 17:26:17" itemprop="dateModified" datetime="2021-05-22T17:26:17+08:00">2021-05-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -365,12 +374,262 @@
 <li>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</li>
 </ul>
 </li>
+<li><p>【问题5】<strong>服务器产生大量的time_wait怎么办?</strong></p>
+<ul>
+<li><p>首先大量的TIME_WAIT造成的影响?</p>
+<ul>
+<li><p> 在<strong>高并发短连接</strong>的TCP服务器上，当服务器处理完请求后立刻主动正常关闭连接。这个场景下会出现大量socket处于TIME_WAIT状态。如果客户端的并发量持续很高，此时部分客户端就会显示连接不上。</p>
+</li>
+<li><p>那么怎么去处理这种情况呢?</p>
+<ul>
+<li><p>首先我们可以用linux命令去查看TCP的连接数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">netstat -ant|awk &#39;&#x2F;^tcp&#x2F; &#123;++S[$NF]&#125; END &#123;for(a in S) print (a,S[a])&#125;&#39;</span><br><span class="line">LAST_ACK 14</span><br><span class="line">SYN_RECV 348</span><br><span class="line">ESTABLISHED 70</span><br><span class="line">FIN_WAIT1 229</span><br><span class="line">FIN_WAIT2 30</span><br><span class="line">CLOSING 33</span><br><span class="line">TIME_WAIT 18122</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>状态描述:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CLOSED：无连接是活动的或正在进行</span><br><span class="line">LISTEN：服务器在等待进入呼叫</span><br><span class="line">SYN_RECV：一个连接请求已经到达，等待确认</span><br><span class="line">SYN_SENT：应用已经开始，打开一个连接</span><br><span class="line">ESTABLISHED：正常数据传输状态</span><br><span class="line">FIN_WAIT1：应用说它已经完成</span><br><span class="line">FIN_WAIT2：另一边已同意释放</span><br><span class="line">ITMED_WAIT：等待所有分组死掉</span><br><span class="line">CLOSING：两边同时尝试关闭</span><br><span class="line">TIME_WAIT：另一边已初始化一个释放</span><br><span class="line">LAST_ACK：等待所有分组死掉</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>编辑内核文件/etc/sysctl.conf,加入以下内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_syncookies &#x3D; 1 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；</span><br><span class="line">net.ipv4.tcp_tw_reuse &#x3D; 1 表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；</span><br><span class="line">net.ipv4.tcp_tw_recycle &#x3D; 1 表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。</span><br><span class="line">net.ipv4.tcp_fin_timeout 修改系默认的 TIMEOUT 时间</span><br></pre></td></tr></table></figure></li>
+<li><p>然后执行 /sbin/sysctl -p 让参数生效.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;sysctl.conf是一个允许改变正在运行中的Linux系统的接口，它包含一些TCP&#x2F;IP堆栈和虚拟内存系统的高级选项，修改内核参数永久生效。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>上面的配置简单来说，就是打开系统的TIMEWAIT的重用和快速回收</p>
+</li>
+<li><p>如果以上配置调优后性能还是不理想，可继续修改一下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line">net.ipv4.tcp_keepalive_time &#x3D; 1200 </span><br><span class="line">#表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。</span><br><span class="line">net.ipv4.ip_local_port_range &#x3D; 1024 65000 </span><br><span class="line">#表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。</span><br><span class="line">net.ipv4.tcp_max_syn_backlog &#x3D; 8192 </span><br><span class="line">#表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。</span><br><span class="line">net.ipv4.tcp_max_tw_buckets &#x3D; 5000 </span><br><span class="line">#表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。</span><br><span class="line">默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于 Squid，效果却不大。此项参数可以控制TIME_WAIT套接字的最大数量，避免Squid服务器被大量的TIME_WAIT套接字拖死。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
 </li>
 </ol>
-<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><h3 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h3><h3 id="HTTP相关"><a href="#HTTP相关" class="headerlink" title="HTTP相关"></a>HTTP相关</h3><h3 id="Socket相关"><a href="#Socket相关" class="headerlink" title="Socket相关"></a>Socket相关</h3><p>​     </p>
+<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><ul>
+<li><p><strong>UDP的特点</strong>:</p>
+<ul>
+<li>面向非连接</li>
+<li>不维护连接状态，支持同时向多个客户端传输相同的消息</li>
+<li> 数据包报头只有8个字节，额外开销较小</li>
+<li>吞吐量只受限于数据生成率，传输速率以及机器性能</li>
+</ul>
+</li>
+<li><p>尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表</p>
+</li>
+<li><p><strong>UDP报文结构</strong>(报文头部8个字节)</p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/UDP%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="UDP报文结构"></p>
+</li>
+<li><p>TCP报文结构（报文头部20个字节）</p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="TCP报文结构"></p>
+</li>
+<li><p> <strong>两者区别</strong></p>
+</li>
+<li><p>TCP面向连接，而UDP面向无连接</p>
+</li>
+<li><p>TCP相对于UDP来说可靠性要高，因为TCP是有连接机制（<strong>可靠性</strong>）</p>
+</li>
+<li><p>TCP是有序的而UDP是无序的(<strong>有序性</strong>)</p>
+</li>
+<li><p>TCP较UDP来说速度较慢，因为TCP要握手挥手机制，UDP适合 对速度比较敏感的应用，如在线直播等(<strong>速度</strong>)</p>
+</li>
+<li><p>TCP(头部20字节)在量级上比UDP(头部8字节)要小(<strong>量级</strong>)</p>
+</li>
+</ul>
+<h3 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h3><ol>
+<li><strong>我们先来理解两个概念RTT和RTO</strong></li>
+</ol>
+<ul>
+<li>RTT: 发送一个数据包到收到对应的ACK所花费的时间</li>
+<li>RTO:重传时间间隔  </li>
+<li>滑动窗口基于RTO</li>
+</ul>
+<ol start="2">
+<li><strong>TCP使用滑动窗口做流量控制与乱序重排</strong></li>
+</ol>
+<ul>
+<li>保证TCP的可靠性</li>
+<li>保证TCP的流控特性</li>
+<li>报头的window：用于接收方通知发送方，自己还有多少缓冲区用来接收数据，发送方根据接收方的处理能力来发送数据，不会导致接收方处理不过来。</li>
+</ul>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B.png" alt="窗口数据的计算过程"></p>
+<ul>
+<li><p>名词解释</p>
+<p>LastByteWritten:上层应用最后一个写的数据，即当前程序准备好要发送的最新的一个数据（还没发送）</p>
+<p>LastByteAcked：最后一个ACK(确认收到)的数据</p>
+<p>LastByteSent：最后一个已经发送的数据，还没收到ack</p>
+<p>LastByteRead：接收端，读取到的并且已经处理的最后一条数据（已经回复ACK的）</p>
+<p>NextByteExpected：已经收到的连续数据中最大的一条（还没回复ACK的）</p>
+<p>LastByteRecvd：已收到的最后一条数据（不连续）</p>
+</li>
+<li><p>窗口数据的计算过程</p>
+<ol>
+<li><p><strong>接收方计算AdvertisedWindow</strong>：</p>
+<ul>
+<li><p>AdvertisedWindow:建议发送端发送的最大数据量</p>
+</li>
+<li><p>AdvertisedWindow = MaxRcvBuffer - (LastByteRecvd-LastByteRead)</p>
+</li>
+<li><p>MaxRcvBuffer接收端缓存池大小</p>
+</li>
+</ul>
+</li>
+<li><p><strong>将AdvertisedWindow发送到发送方，发送方根据AdvertisedWindow计算EffectiveWindow</strong></p>
+<ul>
+<li>EffectiveWindow：发送方窗口内，剩余可发送的最大数据量</li>
+<li>EffectiveWindow = AdvertisedWindow - (LastByteSent-LastByteAcked)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>滑动窗口的基本原理(滑动窗口要比(接收，发送)缓存小)</strong></p>
+</li>
+</ul>
+<ol>
+<li><strong>TCP发送方</strong>:滑动窗口：Category#2 + Category#3,当发送方收到接收方的数据ack时,窗口就会滑动。</li>
+</ol>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%8F%91%E9%80%81%E6%96%B9.png" alt="TCP发送方"></p>
+<ol start="2">
+<li><strong>TCP接收方</strong>:接收窗口：Category#3,当接收方收到连续的数据后并且发出ACK信号后，窗口就会滑动<img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E6%8E%A5%E6%94%B6%E6%96%B9.png" alt="TCP接受方"></li>
+</ol>
+<ul>
+<li><strong>最后总结:</strong><ul>
+<li>流量控制:<ul>
+<li>滑动窗口的大小可以依据一定策略动态调整，应用会根据自身处理能力的变化，通过本端TCP接收窗口的大小的控制，实现对端的发送窗口改变进行流量控制。</li>
+<li>接收方通过计算得出AdvertisedWindow，并发送给发送方。</li>
+<li>发送方：根据AdvertisedWindow计算可发送最大的数据量EffectiveWindow。</li>
+</ul>
+</li>
+<li>乱序控制:<ul>
+<li>接收方：按连续顺序确认接收并发送ack信号。</li>
+<li>发送方  ：按连续顺序发送数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTTP相关"><a href="#HTTP相关" class="headerlink" title="HTTP相关"></a>HTTP相关</h3><ol>
+<li><p><strong>超文本传输协议HTTP的主要特点:</strong></p>
+<ul>
+<li>支持客户/服务器模式</li>
+<li>简单快速</li>
+<li>灵活</li>
+<li>无连接 </li>
+<li>无状态 </li>
+</ul>
+</li>
+<li><p><strong>HTTP请求结构</strong>：</p>
+<ul>
+<li>请求行</li>
+<li>请求头</li>
+<li>空行(即便请求正文没有，也要有一行空行表示请求头结束 )</li>
+<li>请求正文</li>
+</ul>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%84.png" alt="HTTP请求结构"></p>
+</li>
+<li><p><strong>HTTP响应报文结构:</strong></p>
+<ul>
+<li>响应行</li>
+<li>响应头</li>
+<li>空行</li>
+<li>响应正文</li>
+</ul>
+</li>
+<li><p><strong>请求/响应的步骤</strong>:</p>
+<ul>
+<li>客户端连接到WEB服务器</li>
+<li>发送HTTP请求</li>
+<li>服务器接受请求并返回HTTP响应</li>
+<li>释放连接TCP连接</li>
+<li>客户端浏览器解析HTML内容</li>
+</ul>
+</li>
+<li><p><strong>在浏览器地址栏键入URL，按下回车之后经历的流程:</strong></p>
+<ul>
+<li>DNS解析(浏览器缓存-&gt;系统缓存-&gt;路由器缓存-&gt;IPS服务器缓存-&gt;根域名服务器缓存-&gt;顶级域名器缓存）以此查找</li>
+<li>TCP连接，即三次握手机制</li>
+<li>发送HTTP请求</li>
+<li>服务器处理HTTP请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束，即四次挥手机制</li>
+</ul>
+</li>
+<li><p><strong>HTTP状态码:</strong></p>
+<ul>
+<li>1XX：指示请求—表示请求已接收，继续处理</li>
+<li>2XX: 成功–表示请求已经被成功接收，理解，接受</li>
+<li>3XX：重定向–要完成请求必须进行更进一步的操作</li>
+<li>4XX:客户端错误–请求有语法错误或者请求无法实现</li>
+<li>5XX:服务端错误–服务器未能实现合法的请求</li>
+</ul>
+</li>
+<li><p><strong>HTTP和HTTPS的区别:</strong></p>
+<ul>
+<li><p>HTTPS简介:可以理解成HTTPS=HTTP+SSL</p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E7%AE%80%E4%BB%8B.png" alt="HTTPS简介"></p>
+</li>
+<li><p>SSL简介(安全套接层):</p>
+<ul>
+<li><p> 为网络通信提供了安全以及数据完整性的一种安全协议</p>
+</li>
+<li><p>是操作系统对外的API，SSL3.0后更名为TLS</p>
+</li>
+<li><p>采用身份验证和数据加密保证网络通信的安全和数据的完整性</p>
+<ul>
+<li><p>加密的方式</p>
+<ol>
+<li>对称加密:加密和解密都使用同一个密钥(效率高，但不安全)(AES)</li>
+<li>不对称加密:加密使用的密钥和解析使用的密钥是不同的(效率低，但安全性高)(RSA)</li>
+<li>哈希算法:将任意长度的信息转换成固定长度的值，算法不可逆(MD5)</li>
+<li>数字签名:证明某个消息或者文件是某人发出/认同的</li>
+</ol>
+</li>
+<li><p><strong>HTTPS请求过程</strong>:</p>
+<ul>
+<li><p>首先，数据正文一般数据量较大，适用于对称加密，因为对称加密速度快，适应于大量数据加密，但是安全级别低，其中对称加密的密钥需要在网络中传输，容易被盗取；</p>
+</li>
+<li><p>其次，正因为对称加密的密钥易被盗取，所以我们需要对这个密钥进行加密，而且安全级别要求高，所以这个可以用非对称加密算法进行加密，原因是对称加密的密钥数据量小，非对称加密可以提供高安全级别和高响应速度</p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B.png" alt="HTTPS请求过程"></p>
+<ol>
+<li>客户端向服务器发起HTTPS的请求，连接到服务器的443端口</li>
+<li>服务器将非对称加密的公钥以证书的形式回传给客户端</li>
+<li>客户端接受到该公钥后进行验证，就是验证步骤2中服务器返回的证书，如果有问题，则HTTPS请求无法继续；如果没有问题，则上述公钥是合格的，客户端这个时候随机生成一个密钥，称为client key(客户端密钥)，即用于对称加密数据的密钥，然后使用前面的公钥对client key进行非对称加密成密文，至此，HTTPS中的第一次HTTP请求结束</li>
+<li>客户端发起第二次HTTP请求，将加密之后的client key发送给服务器</li>
+<li>服务器使用私钥进行解密，得到解密后的client key，然后使用client key对数据进行对称加密；</li>
+<li>将对称加密后的数据发送给客户端，客户端收到后对密文进行对称解密，得到服务器发送的数据，这样HTTPS中的第二次HTTP请求结束。HTTPS请求完成。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>区别总结:</strong></p>
+<ul>
+<li>HTTPS是密文传输，HTTP是明文传输；</li>
+<li>默认连接的端口号是不同的，HTTPS是443端口，而HTTP是80端口；</li>
+<li>HTTPS请求的过程需要对CA证书进行验证身份以保证客户端请求到正确的服务器端，传回的响应是来自于正确的服务器端，而HTTP则不需要CA证书；</li>
+<li>HTTPS=HTTP+加密+认证+完整性保护</li>
+</ul>
+</li>
+<li><p><strong>HTTPS真的很安全吗?</strong></p>
+<ul>
+<li><p>未必，可能发生<strong>中间人攻击</strong></p>
+<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB.png" alt="中间人攻击"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>那么如何预防中间人攻击呢?</strong></p>
+<ul>
+<li>那么就需要一个强大的CA机构了，因为正经的 CA 证书，都是来自某个权威的 CA。如果某个 CA 足够权威，那么主流的操作系统（或浏览器）会内置该 CA 的“根证书”。（比如 Windows 中就内置了几十个权威 CA 的根证书）因此，浏览器就可以利用系统内置的根证书，来判断网站发过来的 CA 证书是不是某个 CA 颁发的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>​     </p>
 <p>​     </p>
 <p>​     </p>
 
