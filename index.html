@@ -131,6 +131,92 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/01/%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/01/%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">数组相关</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-06-01 21:48:45 / Modified: 23:33:29" itemprop="dateCreated datePublished" datetime="2021-06-01T21:48:45+08:00">2021-06-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><h5 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h5><h5 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h5><h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每次比较中间的数，若目标数大于中间数，则去右区间查找，反之去左区间查找，并且依次缩小区间，直到跳出循环</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span>(<span class="params">array, target</span>):</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = <span class="built_in">len</span>(array)-<span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">        mid = left + (right - left) / <span class="number">2</span> <span class="comment"># 防止整形溢出</span></span><br><span class="line">        <span class="keyword">if</span> target == array[mid]:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">if</span> target &gt; array[mid]:</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            right = mid -<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span>  <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="moveZero（https-leetcode-cn-com-problems-move-zeroes）"><a href="#moveZero（https-leetcode-cn-com-problems-move-zeroes）" class="headerlink" title="moveZero（https://leetcode-cn.com/problems/move-zeroes）"></a>moveZero（<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes%EF%BC%89">https://leetcode-cn.com/problems/move-zeroes）</a></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入: [0,1,0,3,12]</span></span><br><span class="line"><span class="comment"># 输出: [1,3,12,0,0]</span></span><br><span class="line"><span class="comment"># 说明:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 必须在原数组上操作，不能拷贝额外的数组。</span></span><br><span class="line"><span class="comment"># 尽量减少操作次数。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 先对整个数组进行非零扫描，然后空出来的末尾用0补充  list.remove(0)该方法没有返回值但是会移除列表中的某个值的第一个匹配项。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def moveZeroes1(nums):</span></span><br><span class="line"><span class="comment">#     l = len(nums)</span></span><br><span class="line"><span class="comment">#     while True:</span></span><br><span class="line"><span class="comment">#         try:</span></span><br><span class="line"><span class="comment">#             nums.remove(0)</span></span><br><span class="line"><span class="comment">#         except Exception:</span></span><br><span class="line"><span class="comment">#             break</span></span><br><span class="line"><span class="comment">#     nums = nums + [0]*(l-len(nums))</span></span><br><span class="line"><span class="comment">#     return nums</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 双指针的方式 [0..k) 记录非0的位置</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">situation</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">moveZeroes2</span>(<span class="params">self,nums</span>):</span></span><br><span class="line">        k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i]: <span class="comment"># 记录所有非零的元素</span></span><br><span class="line">                <span class="keyword">if</span> i != k:  <span class="comment"># 考虑到数组全为0的情况</span></span><br><span class="line">                    nums[k] , nums[i] = nums[i] , nums[k]</span><br><span class="line">                    k = k + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    k = k + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="removeDuplicates-https-leetcode-cn-com-problems-remove-duplicates-from-sorted-array"><a href="#removeDuplicates-https-leetcode-cn-com-problems-remove-duplicates-from-sorted-array" class="headerlink" title="removeDuplicates(https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array)"></a>removeDuplicates(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。</span></span><br><span class="line"><span class="comment"># 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：nums = [1,1,2]</span></span><br><span class="line"><span class="comment"># 输出：2, nums = [1,2]</span></span><br><span class="line"><span class="comment"># 解释：函数应该返回新的长度 2 ，并且原数组 nums 的前两个元素被修改为 1, 2 。不需要考虑数组中超出新长度后面的元素。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 双指针思路（https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shu-ju-jie-gou-he-suan-fa-shuang-zhi-zhe-12s1/）</span></span><br><span class="line"><span class="comment"># 大致就是一个前指针，一个后指针，当后指针指向的值和前置机指向的值不相等的时候，前指针向前滑动一下，并且把后指针的值赋值给前指针，最后返回前置机的位置+1便是整个数组的长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span>(<span class="params">nums</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> right <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[right] != nums[left]:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">            nums[left] = nums[right]</span><br><span class="line">    <span class="keyword">return</span> left+<span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="built_in">print</span>(removeDuplicates(num))</span><br></pre></td></tr></table></figure>
+
+<h4 id="removeElement-https-leetcode-cn-com-problems-remove-element"><a href="#removeElement-https-leetcode-cn-com-problems-remove-element" class="headerlink" title="removeElement(https://leetcode-cn.com/problems/remove-element)"></a>removeElement(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/remove-element">https://leetcode-cn.com/problems/remove-element</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</span></span><br><span class="line"><span class="comment"># 不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。</span></span><br><span class="line"><span class="comment"># 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素</span></span><br><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/remove-element</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line"><span class="comment"># 输入：nums = [3,2,2,3], val = 3</span></span><br><span class="line"><span class="comment"># 输出：2, nums = [2,2]</span></span><br><span class="line"><span class="comment"># 解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路:双指针思路，分前后指针，前指针从零开始，后指针从末尾往前滑动，当前指针指向的数和目标数相等时，把后指针的值赋值给前指针，并且后指针--，直到条件结束</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">removeElement</span>(<span class="params">nums, val</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    right = <span class="built_in">len</span>(nums)-<span class="number">1</span></span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">        <span class="keyword">if</span> nums[left] == val:</span><br><span class="line">            nums[left] = nums[right]</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums[<span class="number">0</span>:left]</span><br><span class="line"></span><br><span class="line">nums = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(removeElement(nums, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/22/Kafka/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
