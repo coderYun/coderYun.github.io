@@ -131,6 +131,210 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/05/%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/07/05/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">二叉树</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-07-05 21:05:23 / Modified: 23:26:33" itemprop="dateCreated datePublished" datetime="2021-07-05T21:05:23+08:00">2021-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[toc]</p>
+<h4 id="binaryTreePaths-https-leetcode-cn-com-problems-binary-tree-paths"><a href="#binaryTreePaths-https-leetcode-cn-com-problems-binary-tree-paths" class="headerlink" title="binaryTreePaths(https://leetcode-cn.com/problems/binary-tree-paths)"></a>binaryTreePaths(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-paths">https://leetcode-cn.com/problems/binary-tree-paths</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/binary-tree-paths</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个二叉树，返回所有从根节点到叶子节点的路径。</span></span><br><span class="line"><span class="comment"># 说明: 叶子节点是指没有子节点的节点。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line"><span class="comment"># 输入:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#    1</span></span><br><span class="line"><span class="comment">#  /   \</span></span><br><span class="line"><span class="comment"># 2     3</span></span><br><span class="line"><span class="comment">#  \</span></span><br><span class="line"><span class="comment">#   5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出: [&quot;1-&gt;2-&gt;5&quot;, &quot;1-&gt;3&quot;]</span></span><br><span class="line"><span class="comment"># 解释: 所有根节点到叶子节点的路径为: 1-&gt;2-&gt;5, 1-&gt;3</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binaryTreePaths</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    res = []</span><br><span class="line">    <span class="comment"># 递归终止条件，但递归到该节点是叶子节点的时候，将该叶子节点的值加入到res中</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right:</span><br><span class="line">        res.append(<span class="built_in">str</span>(root.val))</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    <span class="comment"># 递归左右子树</span></span><br><span class="line">    left_path = []</span><br><span class="line">    <span class="keyword">if</span> root.left:</span><br><span class="line">        left_path = binaryTreePaths(root.left)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(left_path)):</span><br><span class="line">        res.append(<span class="built_in">str</span>(root.val) + <span class="string">&#x27;-&gt;&#x27;</span> + <span class="built_in">str</span>(left_path[i]))</span><br><span class="line"></span><br><span class="line">    right_path = []</span><br><span class="line">    <span class="keyword">if</span> root.right:</span><br><span class="line">        right_path = binaryTreePaths(root.right)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(right_path)):</span><br><span class="line">        res.append(<span class="built_in">str</span>(root.val) + <span class="string">&#x27;-&gt;&#x27;</span> + <span class="built_in">str</span>(right_path[i]))</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="hasPathSum-https-leetcode-cn-com-problems-path-sum"><a href="#hasPathSum-https-leetcode-cn-com-problems-path-sum" class="headerlink" title="hasPathSum(https://leetcode-cn.com/problems/path-sum/)"></a>hasPathSum(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum/">https://leetcode-cn.com/problems/path-sum/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># # https://leetcode-cn.com/problems/path-sum/</span></span><br><span class="line"><span class="comment"># 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 叶子节点 是指没有子节点的节点。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22</span></span><br><span class="line"><span class="comment"># 输出：true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：root = [1,2,3], targetSum = 5</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3</span></span><br><span class="line"><span class="comment"># 输入：root = [1,2], targetSum = 0</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hasPathSum</span>(<span class="params">root, targetSum</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 1.注意递归终止条件:判断这个节点是不是叶子节点</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right:</span><br><span class="line">        <span class="keyword">return</span> root.val == targetSum</span><br><span class="line">    has_num = targetSum - root.val</span><br><span class="line">    <span class="comment"># 左右子树遍历是否存在路径的和</span></span><br><span class="line">    <span class="keyword">return</span> hasPathSum(root.left, has_num) <span class="keyword">or</span> hasPathSum(root.right, has_num)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="invertTree-https-leetcode-cn-com-problems-invert-binary-tree"><a href="#invertTree-https-leetcode-cn-com-problems-invert-binary-tree" class="headerlink" title="invertTree(https://leetcode-cn.com/problems/invert-binary-tree)"></a>invertTree(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/invert-binary-tree">https://leetcode-cn.com/problems/invert-binary-tree</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/invert-binary-tree</span></span><br><span class="line"><span class="comment"># 翻转一棵二叉树。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#      4</span></span><br><span class="line"><span class="comment">#    /   \</span></span><br><span class="line"><span class="comment">#   2     7</span></span><br><span class="line"><span class="comment">#  / \   / \</span></span><br><span class="line"><span class="comment"># 1   3 6   9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#      4</span></span><br><span class="line"><span class="comment">#    /   \</span></span><br><span class="line"><span class="comment">#   7     2</span></span><br><span class="line"><span class="comment">#  / \   / \</span></span><br><span class="line"><span class="comment"># 9   6 3   1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">invertTree</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="comment"># 1.递归的终止条件，节点为空时返回</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line">    <span class="comment"># 2.交换当前节点的左右子树</span></span><br><span class="line">    root.left, root.right = root.right, root.left</span><br><span class="line">    <span class="comment"># 3.递归交换当前节点的左子树</span></span><br><span class="line">    invertTree(root.left)</span><br><span class="line">    <span class="comment"># 4.递归交换当前节点的右子树</span></span><br><span class="line">    invertTree(root.right)</span><br><span class="line">    <span class="comment"># 5.函数返回时就说明当前这个节点以及他的左右子树都已经交换完了</span></span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="isBalanced-https-leetcode-cn-com-problems-ping-heng-er-cha-shu-lcof"><a href="#isBalanced-https-leetcode-cn-com-problems-ping-heng-er-cha-shu-lcof" class="headerlink" title="isBalanced(https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)"></a>isBalanced(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/">https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/</span></span><br><span class="line"><span class="comment"># 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定二叉树 [3,9,20,null,null,15,7]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     3</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   9  20</span></span><br><span class="line"><span class="comment">#     /  \</span></span><br><span class="line"><span class="comment">#    15   7</span></span><br><span class="line"><span class="comment"># 返回 true 。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定二叉树 [1,2,2,3,3,null,null,4,4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#        1</span></span><br><span class="line"><span class="comment">#       / \</span></span><br><span class="line"><span class="comment">#      2   2</span></span><br><span class="line"><span class="comment">#     / \</span></span><br><span class="line"><span class="comment">#    3   3</span></span><br><span class="line"><span class="comment">#   / \</span></span><br><span class="line"><span class="comment">#  4   4</span></span><br><span class="line"><span class="comment"># 返回 false 。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 同样递归的思路，求</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line">        self.right = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tree_len</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">else</span> <span class="built_in">max</span>(tree_len(root.left), tree_len(root.right))+<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isBalanced</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    left_len = tree_len(root.left)</span><br><span class="line">    right_len = tree_len(root.right)</span><br><span class="line">    <span class="comment"># 比较左右孩子的树的高度是否相差大于1</span></span><br><span class="line">    diff = left_len - right_len</span><br><span class="line">    <span class="keyword">if</span> diff &gt;<span class="number">1</span> <span class="keyword">or</span> diff &lt; -<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> isBalanced(root.left) <span class="keyword">and</span> isBalanced(root.right)</span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="isSameTree-https-leetcode-cn-com-problems-same-tree"><a href="#isSameTree-https-leetcode-cn-com-problems-same-tree" class="headerlink" title="isSameTree(https://leetcode-cn.com/problems/same-tree/)"></a>isSameTree(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/same-tree/">https://leetcode-cn.com/problems/same-tree/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/same-tree/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：p = [1,2,3], q = [1,2,3]</span></span><br><span class="line"><span class="comment"># 输出：true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：p = [1,2], q = [1,null,2]</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"><span class="comment"># 输入：p = [1,2,1], q = [1,1,2]</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路:递归一一对比是否相等</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isSameTree</span>(<span class="params">p, q</span>):</span></span><br><span class="line">    <span class="comment">#1.递归终止条件</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> p <span class="keyword">and</span> <span class="keyword">not</span> q:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> p <span class="keyword">or</span> <span class="keyword">not</span> q:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 2.递归左右子树</span></span><br><span class="line">    <span class="keyword">if</span> p.val == q.val:</span><br><span class="line">        <span class="keyword">return</span> isSameTree(p.left, q.left) <span class="keyword">and</span> isSameTree(p.right, q.right)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="isSymmetric-https-leetcode-cn-com-problems-symmetric-tree"><a href="#isSymmetric-https-leetcode-cn-com-problems-symmetric-tree" class="headerlink" title="isSymmetric(https://leetcode-cn.com/problems/symmetric-tree/)"></a>isSymmetric(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/symmetric-tree/">https://leetcode-cn.com/problems/symmetric-tree/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/symmetric-tree/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个二叉树，检查它是否是镜像对称的。</span></span><br><span class="line"><span class="comment"># 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     1</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   2   2</span></span><br><span class="line"><span class="comment">#  / \ / \</span></span><br><span class="line"><span class="comment"># 3  4 4  3</span></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     1</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   2   2</span></span><br><span class="line"><span class="comment">#    \   \</span></span><br><span class="line"><span class="comment">#    3    3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 同样是递归思想</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isSymmetric</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> isMirror(root.left, root.right)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isMirror</span>(<span class="params">p, q</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> p <span class="keyword">and</span> <span class="keyword">not</span> q:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> p <span class="keyword">or</span> <span class="keyword">not</span> q:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 因为判断是否是一个镜像，所以对比的应该是左子树的左节点和右子树的右节点以及右子树的右节点和左子树的左节点是否相等</span></span><br><span class="line">    <span class="keyword">if</span> p.val == q.val:</span><br><span class="line">        <span class="keyword">return</span> isMirror(p.left, q.right) <span class="keyword">and</span> isMirror(p.right, q.left)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="maxDepth-https-leetcode-cn-com-problems-er-cha-shu-de-shen-du-lcof"><a href="#maxDepth-https-leetcode-cn-com-problems-er-cha-shu-de-shen-du-lcof" class="headerlink" title="maxDepth(https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)"></a>maxDepth(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/">https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定二叉树 [3,9,20,null,null,15,7]，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     3</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   9  20</span></span><br><span class="line"><span class="comment">#     /  \</span></span><br><span class="line"><span class="comment">#    15   7</span></span><br><span class="line"><span class="comment"># 返回它的最大深度 3 。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路：用递归的思路，分别对左右孩子做递归处理，最后取大的数再加上根节点1便是最长的深度</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line">        self.right = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    left_len = maxDepth(root.left)</span><br><span class="line">    right_len = maxDepth(root.right)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(left_len, right_len)+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="minDepth-https-leetcode-cn-com-problems-minimum-depth-of-binary-tree"><a href="#minDepth-https-leetcode-cn-com-problems-minimum-depth-of-binary-tree" class="headerlink" title="minDepth(https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)"></a>minDepth(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/">https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个二叉树，找出其最小深度。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 说明：叶子节点是指没有子节点的节点。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：root = [3,9,20,null,null,15,7]</span></span><br><span class="line"><span class="comment"># 输出：2</span></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：root = [2,null,3,null,4,null,5,null,6]</span></span><br><span class="line"><span class="comment"># 输出：5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路:</span></span><br><span class="line"><span class="comment"># 思路和而二叉树的最深深度一样，换成min()即可，但是要注意一个事情，</span></span><br><span class="line"><span class="comment"># 就是但要注意如果根节点的左或右子树为空的话是构不成子树的。</span></span><br><span class="line"><span class="comment"># 而最小深度是要求从根节点到子树的。当左或右子树为空时，不符合要求。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">minDepth</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 空节点不参与比较</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> root.right:</span><br><span class="line">        <span class="keyword">return</span> minDepth(root.right)+<span class="number">1</span></span><br><span class="line">    <span class="comment"># 空节点不参与比较</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root.right <span class="keyword">and</span> root.left:</span><br><span class="line">        <span class="keyword">return</span> minDepth(root.left)+<span class="number">1</span></span><br><span class="line">    <span class="comment"># 根节点的左右孩子都不为空的时候两者取小</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>(minDepth(root.left), minDepth(root.right))+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="pathSum-https-leetcode-cn-com-problems-path-sum-ii"><a href="#pathSum-https-leetcode-cn-com-problems-path-sum-ii" class="headerlink" title="pathSum(https://leetcode-cn.com/problems/path-sum-ii/)"></a>pathSum(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum-ii/">https://leetcode-cn.com/problems/path-sum-ii/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/path-sum-ii/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点路径总和等于</span></span><br><span class="line"><span class="comment"># 给定目标和的路径。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 叶子节点 是指没有子节点的节点。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22</span></span><br><span class="line"><span class="comment"># 输出：[[5,4,11,2],[5,8,4,5]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：root = [1,2,3], targetSum = 5</span></span><br><span class="line"><span class="comment"># 输出：[]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"><span class="comment"># 输入：root = [1,2], targetSum = 0</span></span><br><span class="line"><span class="comment"># 输出：[]</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, left=<span class="literal">None</span>, right=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pathSum</span>(<span class="params">root, targetSum</span>):</span></span><br><span class="line"></span><br><span class="line">    res= []</span><br><span class="line">    path = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">root, targetSum</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        path.append(root.val)</span><br><span class="line">        targetSum -= root.val</span><br><span class="line">        <span class="comment"># 递归结束条件:叶子节点并且当前节点的val == targtSum</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right <span class="keyword">and</span> targetSum == <span class="number">0</span>:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        dfs(root.left, targetSum)</span><br><span class="line">        dfs(root.right, targetSum)</span><br><span class="line">        path.pop()</span><br><span class="line">    </span><br><span class="line">    dfs(root, targetSum)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="pathSumIII-https-leetcode-cn-com-problems-path-sum-iii"><a href="#pathSumIII-https-leetcode-cn-com-problems-path-sum-iii" class="headerlink" title="pathSumIII(https://leetcode-cn.com/problems/path-sum-iii)"></a>pathSumIII(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum-iii">https://leetcode-cn.com/problems/path-sum-iii</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># # https://leetcode-cn.com/problems/path-sum-iii/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个二叉树，它的每个结点都存放着一个整数值。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 找出路径和等于给定数值的路径总数。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 二叉树不超过1000个节点，且节点数值范围是 [-1000000,1000000] 的整数。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#       10</span></span><br><span class="line"><span class="comment">#      /  \</span></span><br><span class="line"><span class="comment">#     5   -3</span></span><br><span class="line"><span class="comment">#    / \    \</span></span><br><span class="line"><span class="comment">#   3   2   11</span></span><br><span class="line"><span class="comment">#  / \   \</span></span><br><span class="line"><span class="comment"># 3  -2   1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回 3。和等于 8 的路径有:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.  5 -&gt; 3</span></span><br><span class="line"><span class="comment"># 2.  5 -&gt; 2 -&gt; 1</span></span><br><span class="line"><span class="comment"># 3.  -3 -&gt; 11</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在以node为根节点的二叉树中，寻找包含node的路经，和为sum</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findPath</span>(<span class="params">node, targetSum</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> node.val == targetSum:</span><br><span class="line">        res += <span class="number">1</span></span><br><span class="line">    res += findPath(node.left, targetSum - node.val)</span><br><span class="line">    res += findPath(node.right, targetSum - node.val)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">     </span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.在以root为根节点的二叉树中，寻找和为sum的路径，返回这样的路径个数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pathSum</span>(<span class="params">root, targetSum</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    res = findPath(root, targetSum)</span><br><span class="line">    <span class="comment">#2.不包含root且和为targetSum的路径和 </span></span><br><span class="line">    res += pathSum(root.left, targetSum)</span><br><span class="line">    res += findPath(root.right, targetSum)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="isValidBST-https-leetcode-cn-com-problems-validate-binary-search-tree-submissions"><a href="#isValidBST-https-leetcode-cn-com-problems-validate-binary-search-tree-submissions" class="headerlink" title="isValidBST(https://leetcode-cn.com/problems/validate-binary-search-tree/submissions/)"></a>isValidBST(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/validate-binary-search-tree/submissions/">https://leetcode-cn.com/problems/validate-binary-search-tree/submissions/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">https://leetcode-cn.com/problems/validate-binary-search-tree/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个二叉树，判断其是否是一个有效的二叉搜索树。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设一个二叉搜索树具有如下特征：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 节点的左子树只包含小于当前节点的数。</span></span><br><span class="line"><span class="comment"># 节点的右子树只包含大于当前节点的数。</span></span><br><span class="line"><span class="comment"># 所有左子树和右子树自身必须也是二叉搜索树。</span></span><br><span class="line"><span class="comment"># 示例 1:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入:</span></span><br><span class="line"><span class="comment">#     2</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   1   3</span></span><br><span class="line"><span class="comment"># 输出: true</span></span><br><span class="line"><span class="comment"># 示例 2:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入:</span></span><br><span class="line"><span class="comment">#     5</span></span><br><span class="line"><span class="comment">#    / \</span></span><br><span class="line"><span class="comment">#   1   4</span></span><br><span class="line"><span class="comment">#      / \</span></span><br><span class="line"><span class="comment">#     3   6</span></span><br><span class="line"><span class="comment"># 输出: false</span></span><br><span class="line"><span class="comment"># 解释: 输入为: [5,1,4,null,null,3,6]。</span></span><br><span class="line"><span class="comment">#      根节点的值为 5 ，但是其右子节点值为 4 。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路简单：将中序遍历的值一个个存入一个list中。</span></span><br><span class="line"><span class="comment"># 理解二叉搜索树后，明白二叉搜索树中序遍历后是个递增序列。最后判断list是否为一个递增序列即可</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isValidBST</span>(<span class="params">root</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inOrderTree</span>(<span class="params">root</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        cur, res, stack = root, [], []</span><br><span class="line">        <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">            <span class="keyword">while</span> cur:</span><br><span class="line">                stack.append(cur)</span><br><span class="line">                cur = cur.left</span><br><span class="line">            tmp = stack.pop()</span><br><span class="line">            res.append(tmp.val)</span><br><span class="line">            cur = tmp.right</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    </span><br><span class="line">    in_oder_tree = inOrderTree(root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(in_oder_tree)-<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> in_oder_tree[i] &gt;= in_oder_tree[i+<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/07/05/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">栈和队列</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-07-05 20:57:07 / Modified: 21:04:49" itemprop="dateCreated datePublished" datetime="2021-07-05T20:57:07+08:00">2021-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[toc]</p>
+<h4 id="evalRPN-https-leetcode-cn-com-problems-evaluate-reverse-polish-notation"><a href="#evalRPN-https-leetcode-cn-com-problems-evaluate-reverse-polish-notation" class="headerlink" title="evalRPN(https://leetcode-cn.com/problems/evaluate-reverse-polish-notation)"></a>evalRPN(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/evaluate-reverse-polish-notation">https://leetcode-cn.com/problems/evaluate-reverse-polish-notation</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 说明：</span></span><br><span class="line"><span class="comment"># 整数除法只保留整数部分。</span></span><br><span class="line"><span class="comment"># 给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：tokens = [&quot;2&quot;,&quot;1&quot;,&quot;+&quot;,&quot;3&quot;,&quot;*&quot;]</span></span><br><span class="line"><span class="comment"># 输出：9</span></span><br><span class="line"><span class="comment"># 解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：tokens = [&quot;4&quot;,&quot;13&quot;,&quot;5&quot;,&quot;/&quot;,&quot;+&quot;]</span></span><br><span class="line"><span class="comment"># 输出：6</span></span><br><span class="line"><span class="comment"># 解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/evaluate-reverse-polish-notation</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evalRPN</span>(<span class="params">tokens</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(tokens) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    f1 = <span class="keyword">lambda</span> a,b:a+b</span><br><span class="line">    f2 = <span class="keyword">lambda</span> a,b:a-b</span><br><span class="line">    f3 = <span class="keyword">lambda</span> a,b:a*b</span><br><span class="line">    f4 = <span class="keyword">lambda</span> a,b:<span class="built_in">int</span>(a/<span class="built_in">float</span>(b))</span><br><span class="line">    t_map = &#123;<span class="string">&quot;+&quot;</span>: f1, <span class="string">&quot;-&quot;</span>:f2, <span class="string">&quot;*&quot;</span>:f3, <span class="string">&quot;/&quot;</span>:f4&#125;</span><br><span class="line"></span><br><span class="line">    stack= []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> tokens:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> t_map:</span><br><span class="line">            a = stack.pop()</span><br><span class="line">            b = stack.pop()</span><br><span class="line">            stack.append(t_map[i](b,a))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            stack.append(<span class="built_in">int</span>(i))</span><br><span class="line">    <span class="keyword">return</span> stack[-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">tokens = [<span class="string">&quot;10&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;-11&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;/&quot;</span>,<span class="string">&quot;*&quot;</span>,<span class="string">&quot;17&quot;</span>,<span class="string">&quot;+&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;+&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> (evalRPN(tokens))</span><br></pre></td></tr></table></figure>
+
+<h4 id="isValid-https-leetcode-cn-com-problems-valid-parentheses"><a href="#isValid-https-leetcode-cn-com-problems-valid-parentheses" class="headerlink" title="isValid(https://leetcode-cn.com/problems/valid-parentheses)"></a>isValid(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/valid-parentheses">https://leetcode-cn.com/problems/valid-parentheses</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给定一个只包括 &#x27;(&#x27;，&#x27;)&#x27;，&#x27;&#123;&#x27;，&#x27;&#125;&#x27;，&#x27;[&#x27;，&#x27;]&#x27; 的字符串 s ，判断字符串是否有效。</span></span><br><span class="line"><span class="comment"># 有效字符串需满足：</span></span><br><span class="line"><span class="comment"># 左括号必须用相同类型的右括号闭合。</span></span><br><span class="line"><span class="comment"># 左括号必须以正确的顺序闭合。</span></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：s = &quot;()&quot;</span></span><br><span class="line"><span class="comment"># 输出：true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：s = &quot;()[]&#123;&#125;&quot;</span></span><br><span class="line"><span class="comment"># 输出：true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"><span class="comment"># 输入：s = &quot;(]&quot;</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 4：</span></span><br><span class="line"><span class="comment"># 输入：s = &quot;([)]&quot;</span></span><br><span class="line"><span class="comment"># 输出：false</span></span><br><span class="line"><span class="comment"># 示例 5：</span></span><br><span class="line"><span class="comment"># 输入：s = &quot;&#123;[]&#125;&quot;</span></span><br><span class="line"><span class="comment"># 输出：true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/valid-parentheses</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isValid</span>(<span class="params">s</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    stack = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span> i == <span class="string">&#x27;(&#x27;</span> <span class="keyword">or</span> i == <span class="string">&#x27;&#123;&#x27;</span> <span class="keyword">or</span> i == <span class="string">&#x27;[&#x27;</span>:</span><br><span class="line">            stack.append(i)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(stack):</span><br><span class="line">                real_s = stack.pop()</span><br><span class="line">                match = <span class="literal">None</span></span><br><span class="line">                <span class="keyword">if</span> i == <span class="string">&#x27;)&#x27;</span>:</span><br><span class="line">                    match = <span class="string">&#x27;(&#x27;</span></span><br><span class="line">                <span class="keyword">elif</span> i == <span class="string">&#x27;&#125;&#x27;</span>:</span><br><span class="line">                    match = <span class="string">&#x27;&#123;&#x27;</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    match = <span class="string">&#x27;[&#x27;</span></span><br><span class="line">                <span class="keyword">if</span> real_s != match:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 判断左右是否完全匹配</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(stack) != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = <span class="string">&#x27;]&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(isValid(s))</span><br><span class="line">            </span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h4 id="mergeKLists-https-leetcode-cn-com-problems-merge-k-sorted-lists"><a href="#mergeKLists-https-leetcode-cn-com-problems-merge-k-sorted-lists" class="headerlink" title="mergeKLists(https://leetcode-cn.com/problems/merge-k-sorted-lists/)"></a>mergeKLists(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-k-sorted-lists/">https://leetcode-cn.com/problems/merge-k-sorted-lists/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/merge-k-sorted-lists/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：lists = [[1,4,5],[1,3,4],[2,6]]</span></span><br><span class="line"><span class="comment"># 输出：[1,1,2,3,4,4,5,6]</span></span><br><span class="line"><span class="comment"># 解释：链表数组如下：</span></span><br><span class="line"><span class="comment"># [</span></span><br><span class="line"><span class="comment">#   1-&gt;4-&gt;5,</span></span><br><span class="line"><span class="comment">#   1-&gt;3-&gt;4,</span></span><br><span class="line"><span class="comment">#   2-&gt;6</span></span><br><span class="line"><span class="comment"># ]</span></span><br><span class="line"><span class="comment"># 将它们合并到一个有序链表中得到。</span></span><br><span class="line"><span class="comment"># 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val=<span class="number">0</span>, <span class="built_in">next</span>=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.用堆排序去解决这道题</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeKLists1</span>(<span class="params">lists</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lists:</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    <span class="keyword">import</span> heapq</span><br><span class="line">    dummy = ListNode(<span class="number">0</span>)</span><br><span class="line">    cur = dummy</span><br><span class="line">    heap = []</span><br><span class="line">    <span class="comment"># 把所有的链表头元素遍历一遍构建成一个小顶堆</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(lists)):</span><br><span class="line">        <span class="keyword">if</span> lists[i]:</span><br><span class="line">            heapq.heappush(heap, (lists[i].val, i))</span><br><span class="line">            lists[i] = lists[i].<span class="built_in">next</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> heap:</span><br><span class="line">        val, idx = heapq.heappop(heap)</span><br><span class="line">        cur.<span class="built_in">next</span> = ListNode(val)</span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">        <span class="comment"># 每次从小顶堆里面pop出后判断该链表后面还有没有元素，有就push进</span></span><br><span class="line">        <span class="keyword">if</span> lists[idx]:</span><br><span class="line">            heapq.heappush(heap, (lists[idx].val, idx))</span><br><span class="line">            lists[idx] = lists[idx].<span class="built_in">next</span></span><br><span class="line">    <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.分而治之的思路,每次取中间值，然后左右递归归并，最后再归并左右两个大区间</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeTwoList</span>(<span class="params">l1, l2</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l1:</span><br><span class="line">        <span class="keyword">return</span> l2</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> l2:</span><br><span class="line">        <span class="keyword">return</span> l1</span><br><span class="line">    pre_node = ListNode(-<span class="number">1</span>)</span><br><span class="line">    cur = pre_node</span><br><span class="line">    <span class="keyword">while</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">        <span class="keyword">if</span> l1.val &lt; l2.val:</span><br><span class="line">            cur.<span class="built_in">next</span> = l1</span><br><span class="line">            l1 = l1.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cur.<span class="built_in">next</span> = l2</span><br><span class="line">            l2 = l2.<span class="built_in">next</span></span><br><span class="line">        cur = cur.<span class="built_in">next</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> l1:</span><br><span class="line">        cur.<span class="built_in">next</span> = l1</span><br><span class="line">    <span class="keyword">if</span> l2:</span><br><span class="line">        cur.<span class="built_in">next</span> = l2</span><br><span class="line">    <span class="keyword">return</span> pre_node.<span class="built_in">next</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">beg, end, lists</span>):</span></span><br><span class="line">    <span class="keyword">if</span> beg == end:</span><br><span class="line">        <span class="keyword">return</span> lists[beg]</span><br><span class="line">    mid = beg + (end - beg) // <span class="number">2</span></span><br><span class="line">    sort_list1 = merge(beg, mid, lists)</span><br><span class="line">    sort_list2 = merge(mid+<span class="number">1</span>, end,lists)</span><br><span class="line">    <span class="keyword">return</span> mergeTwoList(sort_list1,sort_list2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeKLists2</span>(<span class="params">lists</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> lists:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    beg,end = <span class="number">0</span>, <span class="built_in">len</span>(lists)-<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> merge(beg, end , lists)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="numSquares-https-leetcode-cn-com-problems-perfect-squares"><a href="#numSquares-https-leetcode-cn-com-problems-perfect-squares" class="headerlink" title="numSquares(https://leetcode-cn.com/problems/perfect-squares/)"></a>numSquares(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/perfect-squares/">https://leetcode-cn.com/problems/perfect-squares/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/perfect-squares/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># BFS 其实是很简单的基础算法，抓住如下几点即可轻松写出不易错的 baseline:</span></span><br><span class="line">    <span class="comment"># BFS 算法组成的 3 元素：队列，入队出队的节点，已访问的集合。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 队列：先入先出的容器；</span></span><br><span class="line"><span class="comment"># 节点：最好写成单独的类，比如本例写成 (value,step) 元组。也可写成 (value,visited)，看自己喜好和题目；</span></span><br><span class="line"><span class="comment"># 已访问集合：为了避免队列中插入重复的值</span></span><br><span class="line"><span class="comment"># BFS算法组成的套路：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化三元素：</span></span><br><span class="line"><span class="comment"># Node = node(n) queue = [Node] visited = set([Node.value])</span></span><br><span class="line"><span class="comment"># 操作队列 —— 弹出队首节点：</span></span><br><span class="line"><span class="comment"># vertex = queue.pop(0)</span></span><br><span class="line"><span class="comment"># 操作弹出的节点 —— 根据业务生成子节点（一个或多个）：</span></span><br><span class="line"><span class="comment"># [node(vertex.value - n*n, Node.step+1) for n in range(1,int(vertex.value**.5)+1)]</span></span><br><span class="line"><span class="comment"># 判断这些节点 —— 符合业务条件，则return，不符合业务条件，且不在已访问集合，则追加到队尾，并加入已访问集合：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># if i==0:                   </span></span><br><span class="line"><span class="comment">#     return new_vertex.step</span></span><br><span class="line">            </span><br><span class="line"><span class="comment"># elif i not in visited:</span></span><br><span class="line"><span class="comment">#     queue.append(new_vertex)</span></span><br><span class="line"><span class="comment">#     visited.add(i)```</span></span><br><span class="line"><span class="comment"># 若以上遍历完成仍未return，下面操作返回未找到代码：</span></span><br><span class="line"><span class="comment"># return -1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">numSquares</span>(<span class="params">n</span>):</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    q = deque()</span><br><span class="line">    <span class="comment"># 用来避免重复大量的元素入队 提高性能</span></span><br><span class="line">    visited = <span class="built_in">set</span>()</span><br><span class="line">    q.append((n, <span class="number">0</span>))</span><br><span class="line">    <span class="keyword">while</span> q:</span><br><span class="line">        num, step = q.popleft()</span><br><span class="line">        target = [num - i*i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">int</span>(num**<span class="number">0.5</span>)+<span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> target:</span><br><span class="line">            <span class="keyword">if</span> t == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> step+<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> t <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                q.append((t, step+<span class="number">1</span>))</span><br><span class="line">                visited.add(t)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(numSquares(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="simplifyPath-https-leetcode-cn-com-problems-simplify-path"><a href="#simplifyPath-https-leetcode-cn-com-problems-simplify-path" class="headerlink" title="simplifyPath(https://leetcode-cn.com/problems/simplify-path)"></a>simplifyPath(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/simplify-path">https://leetcode-cn.com/problems/simplify-path</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给你一个字符串 path ，表示指向某一文件或目录的 Unix 风格 绝对路径 （以 &#x27;/&#x27; 开头），请你将其转化为更加简洁的规范路径。</span></span><br><span class="line"><span class="comment"># 在 Unix 风格的文件系统中，一个点（.）表示当前目录本身；此外，两个点 （..） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。任意多个连续的斜杠（即，&#x27;//&#x27;）都被视为单个斜杠 &#x27;/&#x27; 。</span></span><br><span class="line"><span class="comment"># 对于此问题，任何其他格式的点（例如，&#x27;...&#x27;）均被视为文件/目录名称。</span></span><br><span class="line"><span class="comment"># 请注意，返回的 规范路径 必须遵循下述格式：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 始终以斜杠 &#x27;/&#x27; 开头。</span></span><br><span class="line"><span class="comment"># 两个目录名之间必须只有一个斜杠 &#x27;/&#x27; 。</span></span><br><span class="line"><span class="comment"># 最后一个目录名（如果存在）不能 以 &#x27;/&#x27; 结尾。</span></span><br><span class="line"><span class="comment"># 此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 &#x27;.&#x27; 或 &#x27;..&#x27;）。</span></span><br><span class="line"><span class="comment"># 返回简化后得到的 规范路径 。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：path = &quot;/home/&quot;</span></span><br><span class="line"><span class="comment"># 输出：&quot;/home&quot;</span></span><br><span class="line"><span class="comment"># 解释：注意，最后一个目录名后面没有斜杠。 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：path = &quot;/../&quot;</span></span><br><span class="line"><span class="comment"># 输出：&quot;/&quot;</span></span><br><span class="line"><span class="comment"># 解释：从根目录向上一级是不可行的，因为根目录是你可以到达的最高级。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"><span class="comment"># 输入：path = &quot;/home//foo/&quot;</span></span><br><span class="line"><span class="comment"># 输出：&quot;/home/foo&quot;</span></span><br><span class="line"><span class="comment"># 解释：在规范路径中，多个连续斜杠需要用一个斜杠替换。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 4：</span></span><br><span class="line"><span class="comment"># 输入：path = &quot;/a/./b/../../c/&quot;</span></span><br><span class="line"><span class="comment"># 输出：&quot;/c&quot;</span></span><br><span class="line"><span class="comment"># 链接：https://leetcode-cn.com/problems/simplify-path</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simplifyPath</span>(<span class="params">path</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(path):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    s = path.split(<span class="string">&quot;/&quot;</span>)</span><br><span class="line">    stack = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;.&#x27;</span>]:</span><br><span class="line">            stack.append(i)</span><br><span class="line">        <span class="keyword">elif</span> i == <span class="string">&#x27;..&#x27;</span> <span class="keyword">and</span> stack:</span><br><span class="line">            stack.pop()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;/&#x27;</span> + <span class="string">&#x27;/&#x27;</span>.join(stack)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(simplifyPath(<span class="string">&#x27;/home/&#x27;</span>))</span><br><span class="line"><span class="comment"># a = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;]</span></span><br><span class="line"><span class="comment"># print(&#x27;/&#x27;.join(a))</span></span><br><span class="line"><span class="comment"># b = &#x27;/a/./b/../c&#x27;</span></span><br><span class="line"><span class="comment"># print(b.split(&#x27;/&#x27;))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="topKFrequent-https-leetcode-cn-com-problems-top-k-frequent-elements"><a href="#topKFrequent-https-leetcode-cn-com-problems-top-k-frequent-elements" class="headerlink" title="topKFrequent(https://leetcode-cn.com/problems/top-k-frequent-elements/)"></a>topKFrequent(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/top-k-frequent-elements/">https://leetcode-cn.com/problems/top-k-frequent-elements/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/top-k-frequent-elements/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">topKFrequent2</span>(<span class="params">nums, k</span>):</span></span><br><span class="line">    <span class="keyword">if</span> k &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="built_in">len</span>(nums) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    </span><br><span class="line">    map_count = &#123;&#125;</span><br><span class="line">    <span class="comment"># 先用字典统计一遍每个元素出现的频率</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">        map_count[nums[i]] = map_count.get(nums[i], <span class="number">0</span>)+<span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 构建一个固定大小为k的小顶堆</span></span><br><span class="line">    heap = []</span><br><span class="line">    <span class="keyword">for</span> num, freq <span class="keyword">in</span> map_count.items():</span><br><span class="line">        heapq.heappush(heap, (freq, num))</span><br><span class="line">        <span class="comment">#如果堆的大小大于了K，则队列弹出，保持堆的大小一直为K</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(heap) &gt; k:</span><br><span class="line">            heapq.heappop(heap)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 返回前k的数</span></span><br><span class="line">    res=[item[<span class="number">1</span>] <span class="keyword">for</span> item <span class="keyword">in</span> heap]</span><br><span class="line">    <span class="keyword">return</span> res[::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">topKFrequent2</span>(<span class="params">nums, k</span>):</span></span><br><span class="line">    <span class="keyword">if</span> k &lt;= <span class="number">0</span> <span class="keyword">or</span> <span class="built_in">len</span>(nums) &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    <span class="built_in">map</span> = <span class="built_in">dict</span>()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> <span class="built_in">map</span>:</span><br><span class="line">            <span class="built_in">map</span>[i] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">map</span>[i] += <span class="number">1</span></span><br><span class="line">    r = <span class="built_in">sorted</span>(<span class="built_in">map</span>.items(), key = <span class="keyword">lambda</span> kv:(kv[<span class="number">1</span>], kv[<span class="number">0</span>]))[-k-<span class="number">1</span>:-<span class="number">1</span>]</span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">for</span> k,v <span class="keyword">in</span> r:</span><br><span class="line">        res.append[k]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">k = <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(topKFrequent(nums, k))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="orderTraversal"><a href="#orderTraversal" class="headerlink" title="orderTraversal"></a>orderTraversal</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二叉树的遍历(四种遍历方式:前序，中序，后序，层序)</span></span><br><span class="line"><span class="comment"># https://leetcode-cn.com/problems/binary-tree-preorder-traversal/</span></span><br><span class="line"><span class="comment"># https://leetcode-cn.com/problems/binary-tree-inorder-traversal/</span></span><br><span class="line"><span class="comment"># https://leetcode-cn.com/problems/binary-tree-postorder-traversal/</span></span><br><span class="line"><span class="comment"># https://leetcode-cn.com/problems/binary-tree-level-order-traversal/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 前序遍历: 根-&gt;左-&gt;右</span></span><br><span class="line"><span class="comment"># 1.递归法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorderTraversal1</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    res = []</span><br><span class="line">    res.append(root.val)</span><br><span class="line">    preorderTraversal1(root.left)</span><br><span class="line">    preorderTraversal1(root.right)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 中序遍历: 左-&gt;根-&gt;右</span></span><br><span class="line"><span class="comment"># 1.递归法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal1</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    res = []</span><br><span class="line">    preorderTraversal1(root.left)</span><br><span class="line">    res.append(root.val)</span><br><span class="line">    preorderTraversal1(root.right)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 后序遍历: 左-&gt;右-&gt;根</span></span><br><span class="line"><span class="comment"># 1.递归法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorderTraversal1</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    res = []</span><br><span class="line">    preorderTraversal1(root.left)</span><br><span class="line">    preorderTraversal1(root.right)</span><br><span class="line">    res.append(root.val)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 前序遍历</span></span><br><span class="line"><span class="comment">#2.非递归法(由于栈是先入后出的特性，那么我们可以利用栈的特性模拟递归)</span></span><br><span class="line"><span class="comment"># 它先将根节点 cur 和所有的左孩子入栈并加入结果中，直至 cur 为空，</span></span><br><span class="line"><span class="comment"># 用一个 while 循环实现，然后，每弹出一个栈顶元素 tmp，就到达它的右孩子，再将这个节点当作</span></span><br><span class="line"><span class="comment"># cur 重新按上面的步骤来一遍，直至栈为空。这里又需要一个 while 循环。</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preorderTraversal2</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    cur, res, stack = root, [], []</span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            res.append(cur.val) <span class="comment"># root</span></span><br><span class="line">            stack.append(cur)</span><br><span class="line">            cur = cur.left</span><br><span class="line">        tmp = stack.pop() <span class="comment"># 每次弹出一个元素，就到达右孩子</span></span><br><span class="line">        cur = tmp.left</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 中序遍历</span></span><br><span class="line"><span class="comment"># 非递归法</span></span><br><span class="line"><span class="comment"># 和前序遍历的代码完全相同，只是在出栈的时候才将节点 tmp 的值加入到结果中。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal2</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    cur, res, stack = root, [], []</span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            stack.append(cur)</span><br><span class="line">            cur = cur.left</span><br><span class="line">        tmp = stack.pop() <span class="comment"># 每次弹出一个元素，就到达右孩子</span></span><br><span class="line">        res.append(cur.val) <span class="comment">#  出栈的时候加入结果</span></span><br><span class="line">        cur = tmp.left</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 后序遍历</span></span><br><span class="line"><span class="comment"># 非递归法</span></span><br><span class="line"><span class="comment"># 继续按照上面的思想，这次我们反着思考，节点 cur 先到达最右端的叶子节点并将路径上的节点入栈；</span></span><br><span class="line"><span class="comment"># 然后每次从栈中弹出一个元素后，cur 到达它的左孩子，并将左孩子看作 cur 继续执行上面的步骤。</span></span><br><span class="line"><span class="comment"># 最后将结果反向输出即可</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">postorderTraversal2</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    cur, res, stack = root, [], []</span><br><span class="line">    <span class="keyword">while</span> cur <span class="keyword">or</span> stack:</span><br><span class="line">        <span class="keyword">while</span> cur:</span><br><span class="line">            res.append(cur.val)</span><br><span class="line">            stack.append(cur)</span><br><span class="line">            cur = cur.right</span><br><span class="line">        temp = stack.pop()</span><br><span class="line">        cur= temp.left</span><br><span class="line">    <span class="keyword">return</span> res[::-<span class="number">1</span>] <span class="comment"># 反转一下</span></span><br><span class="line">        </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment"># 层序遍历</span></span><br><span class="line"><span class="comment"># 二叉树的层次遍历的迭代方法与前面不用，因为前面的都采用了深度优先搜索的方式，</span></span><br><span class="line"><span class="comment"># 而层次遍历使用了广度优先搜索，广度优先搜索主要使用队列实现，也就不能使用前面的模板解法了。</span></span><br><span class="line"><span class="comment"># 广度优先搜索的步骤为：(BFS)</span></span><br><span class="line"><span class="comment"># 初始化队列 q，并将根节点 root 加入到队列中；</span></span><br><span class="line"><span class="comment"># 当队列不为空时：</span></span><br><span class="line"><span class="comment">#     队列中弹出节点 node，加入到结果中；</span></span><br><span class="line"><span class="comment">#     如果左子树非空，左子树加入队列；</span></span><br><span class="line"><span class="comment">#     如果右子树非空，右子树加入队列；</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">levelorderTraversal2</span>(<span class="params">root</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line">    res, q = [], [root] <span class="comment">#主队列</span></span><br><span class="line">    <span class="keyword">while</span> q:</span><br><span class="line">        q_size = <span class="built_in">len</span>(q)</span><br><span class="line">        level = []   <span class="comment">#内层队列</span></span><br><span class="line">        <span class="keyword">while</span> q_size &gt; <span class="number">0</span>:</span><br><span class="line">            node = q.pop(<span class="number">0</span>)</span><br><span class="line">            level.append(node.val)</span><br><span class="line">            <span class="keyword">if</span> node.left:</span><br><span class="line">                q.append(node.left)</span><br><span class="line">            <span class="keyword">if</span> node.right:</span><br><span class="line">                q.append(node.right)</span><br><span class="line">            q_size -= <span class="number">1</span></span><br><span class="line">        res.append(level)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/09/%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -277,7 +481,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-13 15:57:42" itemprop="dateModified" datetime="2021-06-13T15:57:42+08:00">2021-06-13</time>
+        <time title="Modified: 2021-07-05 20:57:14" itemprop="dateModified" datetime="2021-07-05T20:57:14+08:00">2021-07-05</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -299,7 +503,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><h5 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_search</span>(<span class="params">array</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(array)-<span class="number">1</span>):</span><br><span class="line">        smallest_index = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, <span class="built_in">len</span>(array)):</span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[smallest_index]:</span><br><span class="line">                smallest_index = j</span><br><span class="line">        <span class="keyword">if</span> i != smallest_index:</span><br><span class="line">            array[i],array[smallest_index] = array[smallest_index], array[i]</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">array = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(select_search(array))</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+          <p>[toc]</p>
+<h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><h5 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_search</span>(<span class="params">array</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(array)-<span class="number">1</span>):</span><br><span class="line">        smallest_index = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i+<span class="number">1</span>, <span class="built_in">len</span>(array)):</span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[smallest_index]:</span><br><span class="line">                smallest_index = j</span><br><span class="line">        <span class="keyword">if</span> i != smallest_index:</span><br><span class="line">            array[i],array[smallest_index] = array[smallest_index], array[i]</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">array = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(select_search(array))</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
 
 
 
@@ -974,589 +1179,6 @@
     
     <div class="post-body" itemprop="articleBody">
           
-      
-    </div>
-
-    
-    
-    
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/Python/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coderYun">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/11/Python/" class="post-title-link" itemprop="url">Python</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-04-11 22:45:12" itemprop="dateCreated datePublished" datetime="2021-04-11T22:45:12+08:00">2021-04-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-13 21:48:32" itemprop="dateModified" datetime="2021-04-13T21:48:32+08:00">2021-04-13</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coderYun">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">计算机网络</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-04-11 22:33:36" itemprop="dateCreated datePublished" datetime="2021-04-11T22:33:36+08:00">2021-04-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-05-22 17:26:17" itemprop="dateModified" datetime="2021-05-22T17:26:17+08:00">2021-05-22</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h3 id="计算机分层"><a href="#计算机分层" class="headerlink" title="计算机分层"></a>计算机分层</h3><ol>
-<li><p>目前市面上存在的有OSI七层模型,TCP/IP四层协议，以及五层协议，如图所示:</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82.png" alt="不同网络分层"></p>
-</li>
-<li><p>我们以标准的OSI七层模型为例，自下向上的阐述一下每层的作用 </p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.png" alt="OSI七层模型"></p>
-<ul>
-<li><p><strong>物理层</strong></p>
-<p>机械，电子，定时接收通信信道上的原始比特流,主要定义了一些物理设备的标准 ，如网线的类型，光纤接口的类型，主要作用是传输比特流，即我们说的0101数据，将他们转换成电流 强弱传输(数模转换)，网卡工作在这一层</p>
-</li>
-<li><p><strong>数据链路层</strong></p>
-<p>将比特流封装成帧发送，并且这一层还提供了差错检测机制(即发送比特流的过程中可能会发生误传重传或者错传的情况)，交换机工作在这一层</p>
-</li>
-<li><p><strong>网络层</strong></p>
-<p>点对点发送时可能需要经过多个节点，那么他是如何找到正确的目标地址的呢?这时便有了网络层,控制子网的运行，如逻辑编址，分组传输，路由传输。在发送数据时，网络层把运输层产生的报文段或用户数据报封装成分组和包进行传送。在 TCP/IP 体系结构中，由于网络层使用 <strong>IP 协议</strong>，因此分组也叫 <strong>IP 数据报</strong> ，简称 <strong>数据报</strong>。</p>
-<p>这里要注意：<strong>不要把运输层的“用户数据报 UDP ”和网络层的“ IP 数据报”弄混</strong>。另外，无论是哪一层的数据单元，都可笼统地用“分组”来表示。</p>
-<p>这里强调指出，网络层中的“网络”二字已经不是我们通常谈到的具体网络，而是指计算机网络体系结构模型中第三层的名称。路由器便工作在这一层</p>
-</li>
-<li><p><strong>传输层</strong></p>
-<p>接受上一层的数据，在必要的时候把数据进行分割，并且将这些数据交给网络层，且保证这些数据段能有效的到达对端 ，该层有两个重要的协议分别是TCP协议和UDP协议</p>
-</li>
-<li><p><strong>会话层</strong></p>
-<p>不同机器上的用户之间建立以及管理会话</p>
-</li>
-<li><p><strong>表示层</strong></p>
-<p>信息的语法语义以及他们的关联，如加密解密，转换翻译，压缩解压缩等等</p>
-</li>
-<li><p><strong>应用层</strong></p>
-<p>**应用层(application-layer）的任务是通过应用进程间的交互来完成特定网络应用。**应用层协议定义的是应用进程（进程：主机中正在运行的程序）间的通信和交互的规则。对于不同的网络应用需要不同的应用层协议。在互联网中应用层协议很多，如**域名系统DNS**，支持万维网应用的 <strong>HTTP协议</strong>，支持电子邮件的 <strong>SMTP协议</strong>等等。我们把应用层交互的数据单元称为报文</p>
-<p><strong>域名系统</strong></p>
-<blockquote>
-<p>域名系统(Domain Name System缩写 DNS，Domain Name被译为域名)是因特网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。（百度百科）例如：一个公司的 Web 网站可看作是它在网上的门户，而域名就相当于其门牌地址，通常域名都使用该公司的名称或简称。例如上面提到的微软公司的域名，类似的还有：IBM 公司的域名是 <a target="_blank" rel="noopener" href="http://www.ibm.com、oracle/">www.ibm.com、Oracle</a> 公司的域名是 <a target="_blank" rel="noopener" href="http://www.oracle.com、cisco公司的域名是/">www.oracle.com、Cisco公司的域名是</a> <a target="_blank" rel="noopener" href="http://www.cisco.com/">www.cisco.com</a> 等。</p>
-</blockquote>
-<p><strong>HTTP协议</strong></p>
-<blockquote>
-<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。所有的 WWW（万维网） 文件都必须遵守这个标准。设计 HTTP 最初的目的是为了提供一种发布和接收 HTML 页面的方法。（百度百科）</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<ol start="3">
-<li><p>不同层次的简要配合流程:</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%AF%8F%E5%B1%82%E5%B7%A5%E4%BD%9C%E4%BD%9C%E7%94%A8.png" alt="工作流程"></p>
-</li>
-</ol>
-<h3 id="TCP三次握手与四次挥手机制"><a href="#TCP三次握手与四次挥手机制" class="headerlink" title="TCP三次握手与四次挥手机制"></a>TCP三次握手与四次挥手机制</h3><ol>
-<li><p><strong>传输控制协议TCP简介</strong></p>
-<ul>
-<li>面向连接的，可靠的，基于字节流的传输层通信协议</li>
-<li>将应用层的数据流分割成报文段并发送给目标节点的TCP层</li>
-<li>数据包都有序号，对方收到则发送ACK确认，未收到则重传</li>
-<li>使用校验和检验数据在传输过程中是否有误 </li>
-</ul>
-</li>
-<li><p><strong>TCP的报文结构如图所示:</strong></p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="tcp三次握手"></p>
-</li>
-</ol>
-<ul>
-<li><p>序列号seq：占4个字节，用来标记数据段的顺序，TCP把连接中发送的所有数据字节都编上一个序号，第一个字节的编号由本地随机产生；给字节编上序号后，就给每一个报文段指派一个序号；序列号seq就是这个报文段中的第一个字节的数据编号。</p>
-</li>
-<li><p>确认号ack：占4个字节，期待收到对方下一个报文段的第一个数据字节的序号；序列号表示报文段携带数据的第一个字节的编号；而确认号指的是期望接收到下一个字节的编号；因此当前报文段最后一个字节的编号+1即为确认号。</p>
-</li>
-<li><p>确认ACK：占1位，仅当ACK=1时，确认号字段才有效。ACK=0时，确认号无效</p>
-</li>
-<li><p>同步SYN：连接建立时用于同步序号。当SYN=1，ACK=0时表示：这是一个连接请求报文段。若同意连接，则在响应报文段中使得SYN=1，ACK=1。因此，SYN=1表示这是一个连接请求，或连接接受报文。SYN这个标志位只有在TCP建产连接时才会被置1，握手完成后SYN标志位被置0。</p>
-</li>
-<li><p>终止FIN：用来释放一个连接。FIN=1表示：此报文段的发送方的数据已经发送完毕，并要求释放运输连接</p>
-</li>
-<li><p>PS：ACK、SYN和FIN这些大写的单词表示标志位，其值要么是1，要么是0；ack、seq小写的单词表示序号</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>URG</td>
-<td>紧急指针是否有效。为1，表示某一位需要被优先处理</td>
-</tr>
-<tr>
-<td>ACK</td>
-<td>确认号是否有效，一般置为1</td>
-</tr>
-<tr>
-<td>PSH</td>
-<td>提示接收端应用程序立即从TCP缓冲区把数据读走</td>
-</tr>
-<tr>
-<td>RST</td>
-<td>对方要求重建建立，复位</td>
-</tr>
-<tr>
-<td>SYN</td>
-<td>请求建立连接，并且在其序列号的字段进行序列号的初始值设定。建立连接，设置为1</td>
-</tr>
-<tr>
-<td>FIN</td>
-<td>希望断开连接</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<ol start="3">
-<li><strong>tcp三次握手</strong></li>
-</ol>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="tcp三次握手"></p>
-<ul>
-<li><p>第一次握手: 建立连接时，客户端会发送一个syn=j包和一个seq=x包到服务端,并且进去到SYN_SENT状态，等待服务端确认</p>
-</li>
-<li><p>第二次握手: 服务端收到来自客户端的syn包，必须确认客户端的SYN(ack=j+1),并且发送自己的seq=y包，即SYN+ACK包，此时服务端进入到SYN_RECV状态</p>
-</li>
-<li><p>第三次握手: 客户端收到来自服务端的ACK+SYN包，向服务器发送确认包ACK(ack=y+1),此包发送完毕，双方都进入到ESTABLISHED（TCP连接成功）状态，完成三次握手</p>
-</li>
-</ul>
-<ol start="4">
-<li><p><strong>tcp四次挥手</strong></p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" alt="四次挥手"></p>
-<ul>
-<li><p><strong>第一次</strong>: 客户端发送一个FIN，用来关闭客户端到服务端的数据传输，客户端进入到FIN_WAIT_1状态</p>
-</li>
-<li><p><strong>第二次</strong>:服务端收到FIN后，发送一个ACK给客户端，确认序列号为收到的序号+1（与SYN相同，一个FIN占用一个序号），Server进入到CLOSE_WAIT状态</p>
-</li>
-<li><p><strong>第三次</strong>: 服务端发送一个FIN，用来关闭服务端到客户端的数据传输，服务端进入到LAST_ACK状态</p>
-</li>
-<li><p><strong>第四次:</strong> 客户端收到FIN后，客户端进入到TIME_WAIT状态，接着发送一个ACK给服务端，确认序号为收到的序号+1,服务端进入到CLOSED状态，完成四次挥手</p>
-</li>
-</ul>
-<ol start="5">
-<li><p>【<strong>常见问题</strong>】</p>
-<ul>
-<li><p>【问题1】<strong>TCP连接必须经过2MSL后才真正释放掉，为什么 需要等待2MSL的时间段的TIME_WAIT状态再进入到CLOSE状态而不是立马就进入到CLOSE状态?</strong></p>
-<ul>
-<li><p>确保有足够的时间让对方收到ACK包。如果被动关闭的那一端没有收到ACK包，那么就会触发被动关闭方重发FIN包，一来一回刚好是2MSL的时间段</p>
-</li>
-<li><p>避免新旧连接混淆。有些路由器会缓存数据包，如果连接被重用了，那么那些延迟收到的包就有可能会跟新的数据包混淆在一起</p>
-</li>
-</ul>
-</li>
-<li><p>【问题2】<strong>为什么是需要四次握手才能断开连接？而建立连接确实三次握手？</strong></p>
-<ul>
-<li>因为全双工，发送方和接收方都需要FIN和ACK报文。</li>
-<li>当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手</li>
-</ul>
-</li>
-<li><p>【问题3】<strong>为什么不能两次握手建立连接？</strong></p>
-<ul>
-<li><p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
-</li>
-<li><p><strong>为了初始化Sequence Number的初始值。</strong>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
-</li>
-</ul>
-</li>
-<li><p>【问题4】<strong>如果已经建立了连接，但是客户端突然出现故障下线了怎么办(即所谓的SYN flood攻击)？</strong></p>
-<ul>
-<li>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</li>
-</ul>
-</li>
-<li><p>【问题5】<strong>服务器产生大量的time_wait怎么办?</strong></p>
-<ul>
-<li><p>首先大量的TIME_WAIT造成的影响?</p>
-<ul>
-<li><p> 在<strong>高并发短连接</strong>的TCP服务器上，当服务器处理完请求后立刻主动正常关闭连接。这个场景下会出现大量socket处于TIME_WAIT状态。如果客户端的并发量持续很高，此时部分客户端就会显示连接不上。</p>
-</li>
-<li><p>那么怎么去处理这种情况呢?</p>
-<ul>
-<li><p>首先我们可以用linux命令去查看TCP的连接数:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">netstat -ant|awk &#39;&#x2F;^tcp&#x2F; &#123;++S[$NF]&#125; END &#123;for(a in S) print (a,S[a])&#125;&#39;</span><br><span class="line">LAST_ACK 14</span><br><span class="line">SYN_RECV 348</span><br><span class="line">ESTABLISHED 70</span><br><span class="line">FIN_WAIT1 229</span><br><span class="line">FIN_WAIT2 30</span><br><span class="line">CLOSING 33</span><br><span class="line">TIME_WAIT 18122</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>状态描述:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CLOSED：无连接是活动的或正在进行</span><br><span class="line">LISTEN：服务器在等待进入呼叫</span><br><span class="line">SYN_RECV：一个连接请求已经到达，等待确认</span><br><span class="line">SYN_SENT：应用已经开始，打开一个连接</span><br><span class="line">ESTABLISHED：正常数据传输状态</span><br><span class="line">FIN_WAIT1：应用说它已经完成</span><br><span class="line">FIN_WAIT2：另一边已同意释放</span><br><span class="line">ITMED_WAIT：等待所有分组死掉</span><br><span class="line">CLOSING：两边同时尝试关闭</span><br><span class="line">TIME_WAIT：另一边已初始化一个释放</span><br><span class="line">LAST_ACK：等待所有分组死掉</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>编辑内核文件/etc/sysctl.conf,加入以下内容:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_syncookies &#x3D; 1 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；</span><br><span class="line">net.ipv4.tcp_tw_reuse &#x3D; 1 表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；</span><br><span class="line">net.ipv4.tcp_tw_recycle &#x3D; 1 表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。</span><br><span class="line">net.ipv4.tcp_fin_timeout 修改系默认的 TIMEOUT 时间</span><br></pre></td></tr></table></figure></li>
-<li><p>然后执行 /sbin/sysctl -p 让参数生效.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;sysctl.conf是一个允许改变正在运行中的Linux系统的接口，它包含一些TCP&#x2F;IP堆栈和虚拟内存系统的高级选项，修改内核参数永久生效。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>上面的配置简单来说，就是打开系统的TIMEWAIT的重用和快速回收</p>
-</li>
-<li><p>如果以上配置调优后性能还是不理想，可继续修改一下配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line">net.ipv4.tcp_keepalive_time &#x3D; 1200 </span><br><span class="line">#表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。</span><br><span class="line">net.ipv4.ip_local_port_range &#x3D; 1024 65000 </span><br><span class="line">#表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。</span><br><span class="line">net.ipv4.tcp_max_syn_backlog &#x3D; 8192 </span><br><span class="line">#表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。</span><br><span class="line">net.ipv4.tcp_max_tw_buckets &#x3D; 5000 </span><br><span class="line">#表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。</span><br><span class="line">默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于 Squid，效果却不大。此项参数可以控制TIME_WAIT套接字的最大数量，避免Squid服务器被大量的TIME_WAIT套接字拖死。</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><ul>
-<li><p><strong>UDP的特点</strong>:</p>
-<ul>
-<li>面向非连接</li>
-<li>不维护连接状态，支持同时向多个客户端传输相同的消息</li>
-<li> 数据包报头只有8个字节，额外开销较小</li>
-<li>吞吐量只受限于数据生成率，传输速率以及机器性能</li>
-</ul>
-</li>
-<li><p>尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表</p>
-</li>
-<li><p><strong>UDP报文结构</strong>(报文头部8个字节)</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/UDP%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="UDP报文结构"></p>
-</li>
-<li><p>TCP报文结构（报文头部20个字节）</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/tcp%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" alt="TCP报文结构"></p>
-</li>
-<li><p> <strong>两者区别</strong></p>
-</li>
-<li><p>TCP面向连接，而UDP面向无连接</p>
-</li>
-<li><p>TCP相对于UDP来说可靠性要高，因为TCP是有连接机制（<strong>可靠性</strong>）</p>
-</li>
-<li><p>TCP是有序的而UDP是无序的(<strong>有序性</strong>)</p>
-</li>
-<li><p>TCP较UDP来说速度较慢，因为TCP要握手挥手机制，UDP适合 对速度比较敏感的应用，如在线直播等(<strong>速度</strong>)</p>
-</li>
-<li><p>TCP(头部20字节)在量级上比UDP(头部8字节)要小(<strong>量级</strong>)</p>
-</li>
-</ul>
-<h3 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h3><ol>
-<li><strong>我们先来理解两个概念RTT和RTO</strong></li>
-</ol>
-<ul>
-<li>RTT: 发送一个数据包到收到对应的ACK所花费的时间</li>
-<li>RTO:重传时间间隔  </li>
-<li>滑动窗口基于RTO</li>
-</ul>
-<ol start="2">
-<li><strong>TCP使用滑动窗口做流量控制与乱序重排</strong></li>
-</ol>
-<ul>
-<li>保证TCP的可靠性</li>
-<li>保证TCP的流控特性</li>
-<li>报头的window：用于接收方通知发送方，自己还有多少缓冲区用来接收数据，发送方根据接收方的处理能力来发送数据，不会导致接收方处理不过来。</li>
-</ul>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B.png" alt="窗口数据的计算过程"></p>
-<ul>
-<li><p>名词解释</p>
-<p>LastByteWritten:上层应用最后一个写的数据，即当前程序准备好要发送的最新的一个数据（还没发送）</p>
-<p>LastByteAcked：最后一个ACK(确认收到)的数据</p>
-<p>LastByteSent：最后一个已经发送的数据，还没收到ack</p>
-<p>LastByteRead：接收端，读取到的并且已经处理的最后一条数据（已经回复ACK的）</p>
-<p>NextByteExpected：已经收到的连续数据中最大的一条（还没回复ACK的）</p>
-<p>LastByteRecvd：已收到的最后一条数据（不连续）</p>
-</li>
-<li><p>窗口数据的计算过程</p>
-<ol>
-<li><p><strong>接收方计算AdvertisedWindow</strong>：</p>
-<ul>
-<li><p>AdvertisedWindow:建议发送端发送的最大数据量</p>
-</li>
-<li><p>AdvertisedWindow = MaxRcvBuffer - (LastByteRecvd-LastByteRead)</p>
-</li>
-<li><p>MaxRcvBuffer接收端缓存池大小</p>
-</li>
-</ul>
-</li>
-<li><p><strong>将AdvertisedWindow发送到发送方，发送方根据AdvertisedWindow计算EffectiveWindow</strong></p>
-<ul>
-<li>EffectiveWindow：发送方窗口内，剩余可发送的最大数据量</li>
-<li>EffectiveWindow = AdvertisedWindow - (LastByteSent-LastByteAcked)</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><strong>滑动窗口的基本原理(滑动窗口要比(接收，发送)缓存小)</strong></p>
-</li>
-</ul>
-<ol>
-<li><strong>TCP发送方</strong>:滑动窗口：Category#2 + Category#3,当发送方收到接收方的数据ack时,窗口就会滑动。</li>
-</ol>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E5%8F%91%E9%80%81%E6%96%B9.png" alt="TCP发送方"></p>
-<ol start="2">
-<li><strong>TCP接收方</strong>:接收窗口：Category#3,当接收方收到连续的数据后并且发出ACK信号后，窗口就会滑动<img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%E6%8E%A5%E6%94%B6%E6%96%B9.png" alt="TCP接受方"></li>
-</ol>
-<ul>
-<li><strong>最后总结:</strong><ul>
-<li>流量控制:<ul>
-<li>滑动窗口的大小可以依据一定策略动态调整，应用会根据自身处理能力的变化，通过本端TCP接收窗口的大小的控制，实现对端的发送窗口改变进行流量控制。</li>
-<li>接收方通过计算得出AdvertisedWindow，并发送给发送方。</li>
-<li>发送方：根据AdvertisedWindow计算可发送最大的数据量EffectiveWindow。</li>
-</ul>
-</li>
-<li>乱序控制:<ul>
-<li>接收方：按连续顺序确认接收并发送ack信号。</li>
-<li>发送方  ：按连续顺序发送数据。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="HTTP相关"><a href="#HTTP相关" class="headerlink" title="HTTP相关"></a>HTTP相关</h3><ol>
-<li><p><strong>超文本传输协议HTTP的主要特点:</strong></p>
-<ul>
-<li>支持客户/服务器模式</li>
-<li>简单快速</li>
-<li>灵活</li>
-<li>无连接 </li>
-<li>无状态 </li>
-</ul>
-</li>
-<li><p><strong>HTTP请求结构</strong>：</p>
-<ul>
-<li>请求行</li>
-<li>请求头</li>
-<li>空行(即便请求正文没有，也要有一行空行表示请求头结束 )</li>
-<li>请求正文</li>
-</ul>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%84.png" alt="HTTP请求结构"></p>
-</li>
-<li><p><strong>HTTP响应报文结构:</strong></p>
-<ul>
-<li>响应行</li>
-<li>响应头</li>
-<li>空行</li>
-<li>响应正文</li>
-</ul>
-</li>
-<li><p><strong>请求/响应的步骤</strong>:</p>
-<ul>
-<li>客户端连接到WEB服务器</li>
-<li>发送HTTP请求</li>
-<li>服务器接受请求并返回HTTP响应</li>
-<li>释放连接TCP连接</li>
-<li>客户端浏览器解析HTML内容</li>
-</ul>
-</li>
-<li><p><strong>在浏览器地址栏键入URL，按下回车之后经历的流程:</strong></p>
-<ul>
-<li>DNS解析(浏览器缓存-&gt;系统缓存-&gt;路由器缓存-&gt;IPS服务器缓存-&gt;根域名服务器缓存-&gt;顶级域名器缓存）以此查找</li>
-<li>TCP连接，即三次握手机制</li>
-<li>发送HTTP请求</li>
-<li>服务器处理HTTP请求并返回HTTP报文</li>
-<li>浏览器解析渲染页面</li>
-<li>连接结束，即四次挥手机制</li>
-</ul>
-</li>
-<li><p><strong>HTTP状态码:</strong></p>
-<ul>
-<li>1XX：指示请求—表示请求已接收，继续处理</li>
-<li>2XX: 成功–表示请求已经被成功接收，理解，接受</li>
-<li>3XX：重定向–要完成请求必须进行更进一步的操作</li>
-<li>4XX:客户端错误–请求有语法错误或者请求无法实现</li>
-<li>5XX:服务端错误–服务器未能实现合法的请求</li>
-</ul>
-</li>
-<li><p><strong>HTTP和HTTPS的区别:</strong></p>
-<ul>
-<li><p>HTTPS简介:可以理解成HTTPS=HTTP+SSL</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E7%AE%80%E4%BB%8B.png" alt="HTTPS简介"></p>
-</li>
-<li><p>SSL简介(安全套接层):</p>
-<ul>
-<li><p> 为网络通信提供了安全以及数据完整性的一种安全协议</p>
-</li>
-<li><p>是操作系统对外的API，SSL3.0后更名为TLS</p>
-</li>
-<li><p>采用身份验证和数据加密保证网络通信的安全和数据的完整性</p>
-<ul>
-<li><p>加密的方式</p>
-<ol>
-<li>对称加密:加密和解密都使用同一个密钥(效率高，但不安全)(AES)</li>
-<li>不对称加密:加密使用的密钥和解析使用的密钥是不同的(效率低，但安全性高)(RSA)</li>
-<li>哈希算法:将任意长度的信息转换成固定长度的值，算法不可逆(MD5)</li>
-<li>数字签名:证明某个消息或者文件是某人发出/认同的</li>
-</ol>
-</li>
-<li><p><strong>HTTPS请求过程</strong>:</p>
-<ul>
-<li><p>首先，数据正文一般数据量较大，适用于对称加密，因为对称加密速度快，适应于大量数据加密，但是安全级别低，其中对称加密的密钥需要在网络中传输，容易被盗取；</p>
-</li>
-<li><p>其次，正因为对称加密的密钥易被盗取，所以我们需要对这个密钥进行加密，而且安全级别要求高，所以这个可以用非对称加密算法进行加密，原因是对称加密的密钥数据量小，非对称加密可以提供高安全级别和高响应速度</p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTPS%E8%AF%B7%E6%B1%82%E8%BF%87%E7%A8%8B.png" alt="HTTPS请求过程"></p>
-<ol>
-<li>客户端向服务器发起HTTPS的请求，连接到服务器的443端口</li>
-<li>服务器将非对称加密的公钥以证书的形式回传给客户端</li>
-<li>客户端接受到该公钥后进行验证，就是验证步骤2中服务器返回的证书，如果有问题，则HTTPS请求无法继续；如果没有问题，则上述公钥是合格的，客户端这个时候随机生成一个密钥，称为client key(客户端密钥)，即用于对称加密数据的密钥，然后使用前面的公钥对client key进行非对称加密成密文，至此，HTTPS中的第一次HTTP请求结束</li>
-<li>客户端发起第二次HTTP请求，将加密之后的client key发送给服务器</li>
-<li>服务器使用私钥进行解密，得到解密后的client key，然后使用client key对数据进行对称加密；</li>
-<li>将对称加密后的数据发送给客户端，客户端收到后对密文进行对称解密，得到服务器发送的数据，这样HTTPS中的第二次HTTP请求结束。HTTPS请求完成。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>区别总结:</strong></p>
-<ul>
-<li>HTTPS是密文传输，HTTP是明文传输；</li>
-<li>默认连接的端口号是不同的，HTTPS是443端口，而HTTP是80端口；</li>
-<li>HTTPS请求的过程需要对CA证书进行验证身份以保证客户端请求到正确的服务器端，传回的响应是来自于正确的服务器端，而HTTP则不需要CA证书；</li>
-<li>HTTPS=HTTP+加密+认证+完整性保护</li>
-</ul>
-</li>
-<li><p><strong>HTTPS真的很安全吗?</strong></p>
-<ul>
-<li><p>未必，可能发生<strong>中间人攻击</strong></p>
-<p><img src="/2021/04/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%AD%E9%97%B4%E4%BA%BA%E6%94%BB%E5%87%BB.png" alt="中间人攻击"></p>
-</li>
-</ul>
-</li>
-<li><p><strong>那么如何预防中间人攻击呢?</strong></p>
-<ul>
-<li>那么就需要一个强大的CA机构了，因为正经的 CA 证书，都是来自某个权威的 CA。如果某个 CA 足够权威，那么主流的操作系统（或浏览器）会内置该 CA 的“根证书”。（比如 Windows 中就内置了几十个权威 CA 的根证书）因此，浏览器就可以利用系统内置的根证书，来判断网站发过来的 CA 证书是不是某个 CA 颁发的。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>​     </p>
-<p>​     </p>
-<p>​     </p>
-
       
     </div>
 
