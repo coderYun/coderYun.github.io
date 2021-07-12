@@ -131,6 +131,99 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/12/%E9%80%92%E5%BD%92%E4%B8%8E%E5%9B%9E%E6%BA%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coderYun">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/07/12/%E9%80%92%E5%BD%92%E4%B8%8E%E5%9B%9E%E6%BA%AF/" class="post-title-link" itemprop="url">递归与回溯</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-07-12 08:29:23 / Modified: 08:35:11" itemprop="dateCreated datePublished" datetime="2021-07-12T08:29:23+08:00">2021-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 回溯法思路模板: backtrack的公式：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># result = []</span></span><br><span class="line"><span class="comment"># def backtrack(路径, 选择列表):</span></span><br><span class="line"><span class="comment">#     if 满足结束条件:</span></span><br><span class="line"><span class="comment">#         result.add(路径)</span></span><br><span class="line"><span class="comment">#         return</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">#     for 选择 in 选择列表:</span></span><br><span class="line"><span class="comment">#         做选择</span></span><br><span class="line"><span class="comment">#         backtrack(路径, 选择列表)</span></span><br><span class="line"><span class="comment">#         撤销选择</span></span><br></pre></td></tr></table></figure>
+
+<p>[toc]</p>
+<h4 id="permute-https-leetcode-cn-com-problems-permutations"><a href="#permute-https-leetcode-cn-com-problems-permutations" class="headerlink" title="permute(https://leetcode-cn.com/problems/permutations/)"></a>permute(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations/">https://leetcode-cn.com/problems/permutations/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/permutations/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。  </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：nums = [1,2,3]</span></span><br><span class="line"><span class="comment"># 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</span></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：nums = [0,1]</span></span><br><span class="line"><span class="comment"># 输出：[[0,1],[1,0]]</span></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入：nums = [1]</span></span><br><span class="line"><span class="comment"># 输出：[[1]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute</span>(<span class="params">nums</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    path = []</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">backtrack</span>(<span class="params">nums</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(path) == <span class="built_in">len</span>(nums):</span><br><span class="line">            <span class="keyword">return</span> res.append(path[:]) <span class="comment">#注意是浅拷贝，说明找到了一组</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">in</span> path:  <span class="comment"># 说明已经收录过的元素,直接跳过</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            path.append(nums[i])</span><br><span class="line">            backtrack(nums) <span class="comment">#递归</span></span><br><span class="line">            path.pop() <span class="comment"># 回溯</span></span><br><span class="line">    backtrack(nums)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<h4 id="permuteUnique-https-leetcode-cn-com-problems-permutations-ii"><a href="#permuteUnique-https-leetcode-cn-com-problems-permutations-ii" class="headerlink" title="permuteUnique(https://leetcode-cn.com/problems/permutations-ii/)"></a>permuteUnique(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations-ii/">https://leetcode-cn.com/problems/permutations-ii/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/permutations-ii/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：nums = [1,1,2]</span></span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># [[1,1,2],</span></span><br><span class="line"><span class="comment">#  [1,2,1],</span></span><br><span class="line"><span class="comment">#  [2,1,1]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：nums = [1,2,3]</span></span><br><span class="line"><span class="comment"># 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">permuteUnique</span>(<span class="params">nums</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    path = []</span><br><span class="line">    nums.sort()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trackBacking</span>():</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(path) == <span class="built_in">len</span>(nums):</span><br><span class="line">            res.append(path.copy())</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">in</span> path <span class="keyword">or</span> (i &gt; <span class="number">0</span> <span class="keyword">and</span> nums[i] == nums[i-<span class="number">1</span>]):</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            path.append(nums[i])</span><br><span class="line">            trackBacking(nums)</span><br><span class="line">            path.pop()</span><br><span class="line">    trackBacking(nums)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="letterCombinations-https-leetcode-cn-com-problems-letter-combinations-of-a-phone-number"><a href="#letterCombinations-https-leetcode-cn-com-problems-letter-combinations-of-a-phone-number" class="headerlink" title="letterCombinations(https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)"></a>letterCombinations(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/">https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：digits = &quot;23&quot;</span></span><br><span class="line"><span class="comment"># 输出：[&quot;ad&quot;,&quot;ae&quot;,&quot;af&quot;,&quot;bd&quot;,&quot;be&quot;,&quot;bf&quot;,&quot;cd&quot;,&quot;ce&quot;,&quot;cf&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：digits = &quot;&quot;</span></span><br><span class="line"><span class="comment"># 输出：[]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 3：</span></span><br><span class="line"><span class="comment"># 输入：digits = &quot;2&quot;</span></span><br><span class="line"><span class="comment"># 输出：[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思路: https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/solution/tong-su-yi-dong-dong-hua-yan-shi-17-dian-hua-hao-m/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">letterCombinations</span>(<span class="params">digits</span>):</span></span><br><span class="line">    letter_maper = [</span><br><span class="line">        <span class="string">&quot;&quot;</span>, <span class="comment"># 0</span></span><br><span class="line">        <span class="string">&quot;&quot;</span>, <span class="comment"># 1</span></span><br><span class="line">        <span class="string">&quot;abc&quot;</span>, <span class="comment"># 2</span></span><br><span class="line">        <span class="string">&quot;def&quot;</span>, <span class="comment"># 3</span></span><br><span class="line">        <span class="string">&quot;ghi&quot;</span>, <span class="comment"># 4</span></span><br><span class="line">        <span class="string">&quot;jkl&quot;</span>, <span class="comment"># 5</span></span><br><span class="line">        <span class="string">&quot;mno&quot;</span>, <span class="comment"># 6</span></span><br><span class="line">        <span class="string">&quot;pqrs&quot;</span>, <span class="comment"># 7</span></span><br><span class="line">        <span class="string">&quot;tuv&quot;</span>, <span class="comment"># 8</span></span><br><span class="line">        <span class="string">&quot;wxyz&quot;</span>, <span class="comment"># 9</span></span><br><span class="line">    ]</span><br><span class="line">    res = []</span><br><span class="line">    <span class="comment"># 递归函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">s, index</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index == <span class="built_in">len</span>(digits):</span><br><span class="line">            res.append(s)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        c = digits[index]</span><br><span class="line">        letter = letter_maper[<span class="built_in">ord</span>(c) - <span class="number">48</span>]</span><br><span class="line">        <span class="keyword">for</span> l <span class="keyword">in</span> letter:</span><br><span class="line">            dfs(s+l, index+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> digits:</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    dfs(<span class="string">&quot;&quot;</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="combine-https-leetcode-cn-com-problems-combinations"><a href="#combine-https-leetcode-cn-com-problems-combinations" class="headerlink" title="combine(https://leetcode-cn.com/problems/combinations/)"></a>combine(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combinations/">https://leetcode-cn.com/problems/combinations/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/combinations/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入: n = 4, k = 2</span></span><br><span class="line"><span class="comment"># 输出:</span></span><br><span class="line"><span class="comment"># [</span></span><br><span class="line"><span class="comment">#   [2,4],</span></span><br><span class="line"><span class="comment">#   [3,4],</span></span><br><span class="line"><span class="comment">#   [2,3],</span></span><br><span class="line"><span class="comment">#   [1,2],</span></span><br><span class="line"><span class="comment">#   [1,3],</span></span><br><span class="line"><span class="comment">#   [1,4],</span></span><br><span class="line"><span class="comment"># ]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">combine</span>(<span class="params">n, k</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">0</span> <span class="keyword">or</span> n &lt; k <span class="keyword">or</span> k &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tarackbacking</span>(<span class="params">n, k , start, c</span>):</span></span><br><span class="line">        <span class="comment">#1.递归终止条件</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(c) == k:</span><br><span class="line">            res.append(c[:])</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment">#2.递归过程</span></span><br><span class="line">        <span class="comment"># 这一步可以做箭枝处理</span></span><br><span class="line">        <span class="comment"># for i in range(start, n-(k-len(c))+2)</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start, n+<span class="number">1</span>):</span><br><span class="line">            c.append(i)</span><br><span class="line">            tarackbacking(n, k, i+<span class="number">1</span>, c)</span><br><span class="line">            c.pop()</span><br><span class="line">    c = []</span><br><span class="line">    </span><br><span class="line">    tarackbacking(n, k, <span class="number">1</span>, c)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="combinationSum-https-leetcode-cn-com-problems-combination-sum"><a href="#combinationSum-https-leetcode-cn-com-problems-combination-sum" class="headerlink" title="combinationSum(https://leetcode-cn.com/problems/combination-sum/)"></a>combinationSum(<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/combination-sum/">https://leetcode-cn.com/problems/combination-sum/</a>)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://leetcode-cn.com/problems/combination-sum/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给定一个无重复元素的数组 candidates 和一个目标数 target ，</span></span><br><span class="line"><span class="comment"># 找出 candidates 中所有可以使数字和为 target 的组合。</span></span><br><span class="line"><span class="comment"># candidates 中的数字可以无限制重复被选取。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 说明：</span></span><br><span class="line"><span class="comment"># 所有数字（包括 target）都是正整数。</span></span><br><span class="line"><span class="comment"># 解集不能包含重复的组合。 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 1：</span></span><br><span class="line"><span class="comment"># 输入：candidates = [2,3,6,7], target = 7,</span></span><br><span class="line"><span class="comment"># 所求解集为：</span></span><br><span class="line"><span class="comment"># [</span></span><br><span class="line"><span class="comment">#   [7],</span></span><br><span class="line"><span class="comment">#   [2,2,3]</span></span><br><span class="line"><span class="comment"># ]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例 2：</span></span><br><span class="line"><span class="comment"># 输入：candidates = [2,3,5], target = 8,</span></span><br><span class="line"><span class="comment"># 所求解集为：</span></span><br><span class="line"><span class="comment"># [</span></span><br><span class="line"><span class="comment">#   [2,2,2,2],</span></span><br><span class="line"><span class="comment">#   [2,3,3],</span></span><br><span class="line"><span class="comment">#   [3,5]</span></span><br><span class="line"><span class="comment"># ]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">combinationSum</span>(<span class="params">candidates, target</span>):</span></span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> candidates:</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trackback</span>(<span class="params">candidates, start, target,c</span>):</span></span><br><span class="line">        <span class="comment">#1.递归结束条件</span></span><br><span class="line">        <span class="keyword">if</span> target == <span class="number">0</span>:</span><br><span class="line">            res.append(c[:])</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment">#2.递归过程</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(start, <span class="built_in">len</span>(candidates)):</span><br><span class="line">            <span class="comment"># 如果当前节点就不行了，就不用继续了,这里到不用继续了即包括该depth不用继续了，也包括该节点更大到child也不用继续了，该节点pop出来</span></span><br><span class="line">            <span class="keyword">if</span> target - candidates[i] &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            c.append(candidates[i])</span><br><span class="line">            trackback(candidates, i, target-candidates[i],c)</span><br><span class="line">            c.pop()</span><br><span class="line">    c = []</span><br><span class="line">    <span class="comment"># 排序是剪枝的前提</span></span><br><span class="line">    candidates.sort()</span><br><span class="line">    trackback(candidates, <span class="number">0</span>, target,c)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">l1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">l2 = l1 + [<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(l1))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(l2))</span><br><span class="line"></span><br><span class="line">l1.append(<span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(l1))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/05/%E4%BA%8C%E5%8F%89%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1083,88 +1176,6 @@
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/11/%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coderYun">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/04/11/%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-04-11 22:45:23" itemprop="dateCreated datePublished" datetime="2021-04-11T22:45:23+08:00">2021-04-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-13 21:47:25" itemprop="dateModified" datetime="2021-04-13T21:47:25+08:00">2021-04-13</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
